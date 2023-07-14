@@ -10,13 +10,13 @@
 		0459E34F2A6183EB000B0434 /* TaskTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E34E2A6183EB000B0434 /* TaskTrackerApp.swift */; };
 		0459E3532A6183EC000B0434 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0459E3522A6183EC000B0434 /* Assets.xcassets */; };
 		0459E3562A6183EC000B0434 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0459E3552A6183EC000B0434 /* Preview Assets.xcassets */; };
-		0459E3612A6188F7000B0434 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3602A6188F7000B0434 /* TaskListView.swift */; };
 		0459E3642A618941000B0434 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3632A618941000B0434 /* PreviewProvider.swift */; };
 		0459E3672A6189CB000B0434 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3662A6189CB000B0434 /* TaskModel.swift */; };
 		0459E3692A618DBA000B0434 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3682A618DBA000B0434 /* CalendarService.swift */; };
 		0459E36B2A618E50000B0434 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36A2A618E50000B0434 /* DataService.swift */; };
 		0459E36E2A618EC0000B0434 /* TaskEntity.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36C2A618EC0000B0434 /* TaskEntity.xcdatamodeld */; };
-		0459E3702A619AEE000B0434 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36F2A619AEE000B0434 /* TaskListViewModel.swift */; };
+		0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36F2A619AEE000B0434 /* CoreViewModel.swift */; };
+		0459E3762A61B246000B0434 /* CoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3752A61B246000B0434 /* CoreView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,14 +24,14 @@
 		0459E34E2A6183EB000B0434 /* TaskTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTrackerApp.swift; sourceTree = "<group>"; };
 		0459E3522A6183EC000B0434 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0459E3552A6183EC000B0434 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		0459E3602A6188F7000B0434 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		0459E3632A618941000B0434 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		0459E3662A6189CB000B0434 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		0459E3682A618DBA000B0434 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		0459E36A2A618E50000B0434 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		0459E36D2A618EC0000B0434 /* TaskEntity.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskEntity.xcdatamodel; sourceTree = "<group>"; };
-		0459E36F2A619AEE000B0434 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
+		0459E36F2A619AEE000B0434 /* CoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreViewModel.swift; sourceTree = "<group>"; };
 		0459E3712A619CE8000B0434 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0459E3752A61B246000B0434 /* CoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				0459E34E2A6183EB000B0434 /* TaskTrackerApp.swift */,
+				0459E3742A61B002000B0434 /* Components */,
 				0459E35F2A6187BE000B0434 /* Services */,
 				0459E35C2A6187A2000B0434 /* Core */,
 				0459E3652A6189AA000B0434 /* Models */,
@@ -96,7 +97,7 @@
 		0459E35D2A6187AD000B0434 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0459E3602A6188F7000B0434 /* TaskListView.swift */,
+				0459E3752A61B246000B0434 /* CoreView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -104,7 +105,7 @@
 		0459E35E2A6187B4000B0434 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				0459E36F2A619AEE000B0434 /* TaskListViewModel.swift */,
+				0459E36F2A619AEE000B0434 /* CoreViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -133,6 +134,13 @@
 				0459E36C2A618EC0000B0434 /* TaskEntity.xcdatamodeld */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		0459E3742A61B002000B0434 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,9 +218,9 @@
 				0459E3672A6189CB000B0434 /* TaskModel.swift in Sources */,
 				0459E36B2A618E50000B0434 /* DataService.swift in Sources */,
 				0459E3692A618DBA000B0434 /* CalendarService.swift in Sources */,
-				0459E3702A619AEE000B0434 /* TaskListViewModel.swift in Sources */,
+				0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */,
+				0459E3762A61B246000B0434 /* CoreView.swift in Sources */,
 				0459E36E2A618EC0000B0434 /* TaskEntity.xcdatamodeld in Sources */,
-				0459E3612A6188F7000B0434 /* TaskListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

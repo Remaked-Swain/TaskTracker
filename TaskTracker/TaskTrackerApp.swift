@@ -12,7 +12,7 @@ struct TaskTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                TaskListView()
+                CoreView()
             }
         }
     }
