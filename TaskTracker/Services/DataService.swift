@@ -31,7 +31,7 @@ class DataService {
             do {
                 try viewContext.save()
             } catch {
-                let nserror = error as NSError
+                let error = error as NSError
                 fatalError("saveContext error: \(error)")
             }
         }
@@ -49,6 +49,25 @@ class DataService {
             newTask.isCompleted = task.isCompleted
             
             self?.saveContext()
+        }
+    }
+    
+    func updateTask(_ task: TaskModel) {
+        viewContext.perform { [weak self] in
+            let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+            request.predicate = NSPredicate(format: "id == %@", task.id as CVarArg)
+            
+            do {
+                if let result = try self?.viewContext.fetch(request).first {
+                    result.title = task.title
+                    result.taskDescription = task.taskDescription
+                    result.deadline = task.deadline
+                    result.isCompleted = task.isCompleted
+                    self?.saveContext()
+                }
+            } catch let error {
+                print("Failed to update task: \(error)")
+            }
         }
     }
     

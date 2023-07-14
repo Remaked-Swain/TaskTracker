@@ -24,9 +24,38 @@ class TaskListViewModel: ObservableObject {
         }
     }
     
-    func addTask(title: String?, taskDescription: String?, deadline: Date?) {
-        let task = TaskModel(title: title, taskDescription: taskDescription, deadline: deadline)
-        dataService.saveTask(task)
+    func addTask(title: String? = nil, taskDescription: String? = nil, deadline: Date? = nil) {
+        let newTask = TaskModel(title: title, taskDescription: taskDescription, deadline: deadline)
+        dataService.saveTask(newTask)
+        fetchTasks()
+    }
+    
+    func updateTask(_ task: TaskModel, title: String?, taskDescription: String?, deadline: Date?) {
+        let updatedTask = TaskModel(
+            id: task.id,
+            title: title ?? task.title,
+            taskDescription: taskDescription ?? task.taskDescription,
+            deadline: deadline ?? task.deadline,
+            isCompleted: task.isCompleted
+        )
+        dataService.updateTask(updatedTask)
+        fetchTasks()
+    }
+    
+    func deleteTask(_ task: TaskModel) {
+        dataService.deleteTask(task)
+        fetchTasks()
+    }
+    
+    func completeTask(_ task: TaskModel) {
+        let updatedTask = TaskModel(
+            id: task.id,
+            title: task.title,
+            taskDescription: task.taskDescription,
+            deadline: task.deadline,
+            isCompleted: !task.isCompleted
+        )
+        dataService.updateTask(updatedTask)
         fetchTasks()
     }
 }
