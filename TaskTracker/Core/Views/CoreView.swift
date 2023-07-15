@@ -18,17 +18,41 @@ struct CoreView: View {
             VStack {
                 headerButtons
                 
-                HStack {
-                    Text("Task Tracker")
-                        .font(.largeTitle)
-                }
-                
-                Spacer()
+                navigationTitleSection
                 
                 // Categories section
+//                Section {
+//                    ScrollView(.horizontal, showsIndicators: false) {
+//                        LazyHStack {
+//                            ForEach(0..<10) { _ in
+//                                Text("카테고리별!!!")
+//                            }
+//                        }
+//                    }
+//                    .frame(height: 200)
+//                } header: {
+//                    Text("Categories")
+//                }
+//                .frame(maxWidth: .infinity, alignment: .leading)
+//                .padding(.horizontal)
                 
                 // filtered tasks list section
+                Section {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyVStack {
+                            ForEach(0..<10) { _ in
+                                Text("카테고리별!!!")
+                            }
+                        }
+                    }
+                    .frame(height: 200)
+                } header: {
+                    Text("All Tasks")
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
                 
+                Spacer()
             }
             
             // Button
@@ -84,5 +108,16 @@ extension CoreView {
         .font(.headline)
         .padding(.top)
         .padding(.horizontal)
+    }
+    
+    private var navigationTitleSection: some View {
+        HStack {
+            Text("Task Tracker")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            
+            Spacer()
+        }
+        .padding()
     }
 }

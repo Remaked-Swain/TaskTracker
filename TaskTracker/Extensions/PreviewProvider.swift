@@ -19,7 +19,7 @@ class DeveloperPreview {
     
     private init() {}
     
-    let coreVM = CoreViewModel()
+//    let coreVM = CoreViewModel()
     
     static let currentDate = Date()
 

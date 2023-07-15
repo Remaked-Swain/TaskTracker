@@ -17,6 +17,8 @@
 		0459E36E2A618EC0000B0434 /* TaskEntity.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36C2A618EC0000B0434 /* TaskEntity.xcdatamodeld */; };
 		0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36F2A619AEE000B0434 /* CoreViewModel.swift */; };
 		0459E3762A61B246000B0434 /* CoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3752A61B246000B0434 /* CoreView.swift */; };
+		0488BA2C2A62557B00484208 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA2B2A62557B00484208 /* TaskRowView.swift */; };
+		0488BA2E2A62574C00484208 /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA2D2A62574C00484208 /* DoneButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		0459E36F2A619AEE000B0434 /* CoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreViewModel.swift; sourceTree = "<group>"; };
 		0459E3712A619CE8000B0434 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0459E3752A61B246000B0434 /* CoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreView.swift; sourceTree = "<group>"; };
+		0488BA2B2A62557B00484208 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
+		0488BA2D2A62574C00484208 /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				0459E3752A61B246000B0434 /* CoreView.swift */,
+				0488BA2B2A62557B00484208 /* TaskRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 		0459E3742A61B002000B0434 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0488BA2D2A62574C00484208 /* DoneButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -214,9 +220,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0459E34F2A6183EB000B0434 /* TaskTrackerApp.swift in Sources */,
+				0488BA2C2A62557B00484208 /* TaskRowView.swift in Sources */,
 				0459E3642A618941000B0434 /* PreviewProvider.swift in Sources */,
 				0459E3672A6189CB000B0434 /* TaskModel.swift in Sources */,
 				0459E36B2A618E50000B0434 /* DataService.swift in Sources */,
+				0488BA2E2A62574C00484208 /* DoneButton.swift in Sources */,
 				0459E3692A618DBA000B0434 /* CalendarService.swift in Sources */,
 				0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */,
 				0459E3762A61B246000B0434 /* CoreView.swift in Sources */,
