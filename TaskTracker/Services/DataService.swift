@@ -47,6 +47,7 @@ class DataService {
             newTask.taskDescription = task.taskDescription
             newTask.deadline = task.deadline
             newTask.isCompleted = task.isCompleted
+            newTask.category = task.category
             
             self?.saveContext()
         }
@@ -63,6 +64,8 @@ class DataService {
                     result.taskDescription = task.taskDescription
                     result.deadline = task.deadline
                     result.isCompleted = task.isCompleted
+                    result.category = task.category
+                    
                     self?.saveContext()
                 }
             } catch let error {
@@ -99,7 +102,8 @@ class DataService {
                         title: taskEntity.title ?? "새로운 할 일",
                         taskDescription: taskEntity.taskDescription,
                         deadline: taskEntity.deadline,
-                        isCompleted: taskEntity.isCompleted
+                        isCompleted: taskEntity.isCompleted,
+                        category: taskEntity.category
                     )
                 } ?? []
                 completion(tasks)
@@ -107,6 +111,30 @@ class DataService {
                 print("Failed to fetch tasks: \(error)")
                 completion([])
             }
+        }
+    }
+    
+    func createCategory(_ category: String) {
+        let newCategory = CategoryEntity(context: viewContext)
+        newCategory.name = category
+        
+        self.saveContext()
+    }
+    
+    func deleteCategory(_ category: String) {
+        let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "category == %@", category)
+        
+        do {
+            let tasks = try viewContext.fetch(request)
+            
+            for task in tasks {
+                task.category = nil
+            }
+            
+            self.saveContext()
+        } catch let error {
+            print("Failed to delete category: \(error)")
         }
     }
 }

@@ -14,12 +14,10 @@ extension PreviewProvider {
     }
 }
 
-class DeveloperPreview {
+struct DeveloperPreview {
     static let instance = DeveloperPreview()
     
     private init() {}
-    
-//    let coreVM = CoreViewModel()
     
     static let currentDate = Date()
 
