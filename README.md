@@ -17,6 +17,6 @@
 
 
 #### To-Do
-    1. TaskFormView 의 DatePicker 를 .date, .hourAndMinute 두 개로 나눌 것.
-    2. CoreData 및 DateService 로직 구현
-    3. 날짜나 시간과 관련한 모든 로직을 CalendarService 로 이동, 통합시켜 관리할 것
+    1. CoreData 및 DateService 로직 구현
+    2. 날짜나 시간과 관련한 모든 로직을 CalendarService 로 이동, 통합시켜 관리할 것
+    3. 생성된 category 들에 대한 저장 기능 필요

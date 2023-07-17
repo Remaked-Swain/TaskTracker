@@ -9,24 +9,38 @@ import SwiftUI
 
 struct TaskFormView: View {
     @EnvironmentObject private var coreVM: CoreViewModel
+    @State private var task: TaskModel
+    @State private var id: UUID
     @State private var title: String
     @State private var taskDescription: String
     @State private var deadline: Date?
+    @State private var category: String?
     
     @State private var datePickerIsOn: Bool = false
     @State private var datePickerSelection: Date = Date()
+    @State private var categoryPickerIsOn: Bool = true
+    @State private var categoryPickerSelection: String = "없음"
+    
+    @State private var tmpCategory: String = ""
     
     // 기존의 task 를 편집할 때는 task 가 전달되고, 새로운 task 를 만들 때는 nil 이 전달되어 이니셜라이징됨
     init(task: TaskModel?) {
         if let task = task {
+            self._task = State(initialValue: task)
+            self._id = State(initialValue: task.id)
             self._title = State(initialValue: task.title)
             self._taskDescription = State(initialValue: task.taskDescription)
             self._deadline = State(initialValue: task.deadline)
             self.datePickerSelection = task.deadline ?? Date()
+            self._category = State(initialValue: task.category)
+            self.categoryPickerSelection = task.category ?? ""
         } else {
+            self._task = State(initialValue: TaskModel())
+            self._id = State(initialValue: UUID())
             self._title = State(initialValue: "")
             self._taskDescription = State(initialValue: "")
             self._deadline = State(initialValue: nil)
+            self._category = State(initialValue: nil)
         }
     }
     
@@ -45,6 +59,9 @@ struct TaskFormView: View {
                 
                 datePickerSection
                     .secondarySystemBackgroundModifier()
+                
+                categoryPickerSection
+                    .secondarySystemBackgroundModifier()
             }
             
             controlButtons
@@ -58,6 +75,7 @@ struct TaskFormView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             TaskFormView(task: dev.tasks.first!)
+                .environmentObject(CoreViewModel())
         }
     }
 }
@@ -66,7 +84,7 @@ extension TaskFormView {
     private var controlButtons: some View {
         // Buttons
         HStack {
-            if title.isEmpty == false || taskDescription.isEmpty == false || datePickerIsOn {
+            if title.isEmpty == false || taskDescription.isEmpty == false || datePickerIsOn || categoryPickerIsOn {
                 Button {
                     allClear()
                 } label: {
@@ -86,7 +104,7 @@ extension TaskFormView {
             
             Button {
                 withAnimation(.linear) {
-                    
+                    saveTask()
                 }
             } label: {
                 Image(systemName: "checkmark")
@@ -111,7 +129,10 @@ extension TaskFormView {
             HStack {
                 Image(systemName: "calendar")
                     .imageScale(.large)
+                    .fontWeight(.semibold)
                     .foregroundColor(datePickerIsOn ? .accentColor : .secondary)
+                
+                Text("마감기한")
                 
                 Spacer()
                 
@@ -130,6 +151,65 @@ extension TaskFormView {
                     Text("마감기한")
                 }
                 .datePickerStyle(.graphical)
+                .tint(Color.accentColor)
+            }
+        }
+        .padding()
+    }
+    
+    private var categoryPickerSection: some View {
+        VStack {
+            HStack {
+                Image(systemName: "folder")
+                    .imageScale(.large)
+                    .fontWeight(.semibold)
+                    .foregroundColor(categoryPickerIsOn ? .accentColor : .secondary)
+                
+                Text("카테고리")
+                
+                Spacer()
+                
+                Button {
+                    withAnimation(.easeInOut) {
+                        categoryPickerIsOn.toggle()
+                    }
+                } label: {
+                    Text(categoryPickerIsOn ? "닫기" : "열기")
+                        .foregroundColor(.accentColor)
+                }
+            }
+            
+            if categoryPickerIsOn {
+                Picker(selection: $categoryPickerSelection) {
+                    ForEach(coreVM.allCategories, id: \.self) { selectableCategory in
+                        Text(selectableCategory)
+                    }
+                } label: {
+                    Text("카테고리")
+                }
+                .pickerStyle(.inline)
+                
+                HStack {
+                    TextField("새로운 카테고리", text: $tmpCategory)
+                        .autoCorrectionDisabledTextField()
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(.white)
+                        )
+                    
+                    Button {
+                        addNewCategory()
+                    } label: {
+                        Text("+")
+                            .font(.title.weight(.semibold))
+                            .frame(width: 40)
+                            .frame(maxHeight: .infinity)
+                            .foregroundColor(.white)
+                            .background(Color.accentColor.cornerRadius(10))
+                    }
+
+                }
             }
         }
         .padding()
@@ -141,6 +221,45 @@ extension TaskFormView {
             taskDescription = ""
             datePickerSelection = Date()
             datePickerIsOn = false
+            categoryPickerIsOn = false
+            categoryPickerSelection = "없음"
+            tmpCategory = ""
         }
+    }
+    
+    private func addNewCategory() {
+        guard tmpCategory.isEmpty else {
+            coreVM.addCategory(category: tmpCategory)
+            return
+        }
+        
+        coreVM.addCategory(category: "새로운 카테고리")
+    }
+    
+    private func saveTask() {
+        // Integrity check
+        // 1. datePicker check
+        // 2. category check
+        if datePickerIsOn == false {
+            deadline = nil
+        } else {
+            deadline = datePickerSelection
+        }
+        
+        if categoryPickerIsOn == false {
+            category = nil
+        } else {
+            category = categoryPickerSelection
+        }
+
+        self.task = TaskModel(
+            id: id,
+            title: title,
+            taskDescription: taskDescription,
+            deadline: deadline,
+            category: category
+        )
+        
+        coreVM.addTask(task: task)
     }
 }
