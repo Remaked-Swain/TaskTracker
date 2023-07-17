@@ -78,7 +78,7 @@ extension CoreView {
                 )
                 .animation(nil, value: isPresentedTaskFormView)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
         .padding(.horizontal)
     }
     

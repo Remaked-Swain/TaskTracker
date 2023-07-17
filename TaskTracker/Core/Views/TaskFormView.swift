@@ -18,7 +18,7 @@ struct TaskFormView: View {
     
     @State private var datePickerIsOn: Bool = false
     @State private var datePickerSelection: Date = Date()
-    @State private var categoryPickerIsOn: Bool = true
+    @State private var categoryPickerIsOn: Bool = false
     @State private var categoryPickerSelection: String = "없음"
     
     @State private var tmpCategory: String = ""
@@ -120,7 +120,7 @@ extension TaskFormView {
                     )
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
         .padding(.horizontal)
     }
     
@@ -136,13 +136,15 @@ extension TaskFormView {
                 
                 Spacer()
                 
-                Button {
-                    withAnimation(.easeInOut) {
-                        datePickerIsOn.toggle()
-                    }
-                } label: {
-                    Text(datePickerIsOn ? "닫기" : "열기")
-                        .foregroundColor(.accentColor)
+                Image(systemName: "chevron.down")
+                    .imageScale(.large)
+                    .fontWeight(.semibold)
+                    .rotationEffect(Angle(degrees: datePickerIsOn ? 180 : 0))
+                    .foregroundColor(.accentColor)
+            }
+            .onTapGesture {
+                withAnimation(.easeInOut) {
+                    datePickerIsOn.toggle()
                 }
             }
             
@@ -169,13 +171,15 @@ extension TaskFormView {
                 
                 Spacer()
                 
-                Button {
-                    withAnimation(.easeInOut) {
-                        categoryPickerIsOn.toggle()
-                    }
-                } label: {
-                    Text(categoryPickerIsOn ? "닫기" : "열기")
-                        .foregroundColor(.accentColor)
+                Image(systemName: "chevron.down")
+                    .imageScale(.large)
+                    .fontWeight(.semibold)
+                    .rotationEffect(Angle(degrees: categoryPickerIsOn ? 180 : 0))
+                    .foregroundColor(.accentColor)
+            }
+            .onTapGesture {
+                withAnimation(.easeInOut) {
+                    categoryPickerIsOn.toggle()
                 }
             }
             
@@ -208,7 +212,6 @@ extension TaskFormView {
                             .foregroundColor(.white)
                             .background(Color.accentColor.cornerRadius(10))
                     }
-
                 }
             }
         }
