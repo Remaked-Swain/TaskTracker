@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TaskFormView: View {
+    @EnvironmentObject private var coreVM: CoreViewModel
     @State private var title: String
     @State private var taskDescription: String
     @State private var deadline: Date?
@@ -30,19 +31,23 @@ struct TaskFormView: View {
     }
     
     var body: some View {
-        ScrollView {
-            TextField("제목", text: $title)
-                .autoCorrectionDisabledTextField()
-                .padding()
-                .secondarySystemBackgroundModifier()
+        ZStack {
+            ScrollView {
+                TextField("제목", text: $title)
+                    .autoCorrectionDisabledTextField()
+                    .padding()
+                    .secondarySystemBackgroundModifier()
+                
+                TextField("할 일에 대한 설명", text: $taskDescription)
+                    .autoCorrectionDisabledTextField()
+                    .padding()
+                    .secondarySystemBackgroundModifier()
+                
+                datePickerSection
+                    .secondarySystemBackgroundModifier()
+            }
             
-            TextField("할 일에 대한 설명", text: $taskDescription)
-                .autoCorrectionDisabledTextField()
-                .padding()
-                .secondarySystemBackgroundModifier()
-            
-            datePickerSection
-                .secondarySystemBackgroundModifier()
+            controlButtons
         }
         .navigationTitle("할 일 편집")
         .padding()
@@ -60,22 +65,42 @@ struct TaskFormView_Previews: PreviewProvider {
 extension TaskFormView {
     private var controlButtons: some View {
         // Buttons
-        Button {
-            withAnimation(.linear) {
-                
-            }
-        } label: {
-            Image(systemName: "plus")
-                .imageScale(.large)
-                .font(.title)
-                .frame(width: 60, height: 60)
-                .foregroundColor(.white)
-                .shadow(radius: 10, y: 10)
-                .background(
-                    Circle()
-                        .foregroundColor(.accentColor)
+        HStack {
+            if title.isEmpty == false || taskDescription.isEmpty == false || datePickerIsOn {
+                Button {
+                    allClear()
+                } label: {
+                    Image(systemName: "gobackward")
+                        .imageScale(.large)
+                        .font(.title)
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.white)
                         .shadow(radius: 10, y: 10)
-                )
+                        .background(
+                            Circle()
+                                .foregroundColor(.secondary)
+                                .shadow(radius: 10, y: 10)
+                        )
+                }
+            }
+            
+            Button {
+                withAnimation(.linear) {
+                    
+                }
+            } label: {
+                Image(systemName: "checkmark")
+                    .imageScale(.large)
+                    .font(.title)
+                    .frame(width: 60, height: 60)
+                    .foregroundColor(.white)
+                    .shadow(radius: 10, y: 10)
+                    .background(
+                        Circle()
+                            .foregroundColor(.accentColor)
+                            .shadow(radius: 10, y: 10)
+                    )
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
         .padding(.horizontal)
@@ -91,14 +116,13 @@ extension TaskFormView {
                 Spacer()
                 
                 Button {
-                    withAnimation(.linear) {
+                    withAnimation(.easeInOut) {
                         datePickerIsOn.toggle()
                     }
                 } label: {
                     Text(datePickerIsOn ? "닫기" : "열기")
                         .foregroundColor(.accentColor)
                 }
-
             }
             
             if datePickerIsOn {
@@ -109,5 +133,14 @@ extension TaskFormView {
             }
         }
         .padding()
+    }
+    
+    private func allClear() {
+        withAnimation(.easeInOut) {
+            title = ""
+            taskDescription = ""
+            datePickerSelection = Date()
+            datePickerIsOn = false
+        }
     }
 }

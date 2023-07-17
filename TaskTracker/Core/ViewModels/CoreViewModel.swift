@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class CoreViewModel: ObservableObject {
     @Published var allTasks: [TaskModel] = DeveloperPreview.instance.tasks
@@ -14,6 +15,10 @@ class CoreViewModel: ObservableObject {
     private let calendarService = CalendarService.shared
     
     init() {
+        
+    }
+    
+    private func loadTasks() {
         
     }
 }
