@@ -17,16 +17,7 @@ struct CoreView: View {
             // Background layer
             Color(.secondarySystemBackground).ignoresSafeArea()
             
-            List {
-                Section {
-                    ForEach(coreVM.allTasks) { task in
-                        TaskRowView(task: task)
-                            .environmentObject(coreVM)
-                    }
-                } header: {
-                    Text("Tasks")
-                }
-            }
+            taskListSection
             .navigationTitle("Task Tracker")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -50,17 +41,10 @@ struct CoreView: View {
                 }
             }
             
-            if isPresentedTaskFormView {
-                TaskFormView()
-                    .transition(
-                        .asymmetric(
-                            insertion: .move(edge: .trailing),
-                            removal: .move(edge: .trailing)
-                        )
-                    )
-            }
-            
             addTaskButton
+        }
+        .navigationDestination(isPresented: $isPresentedTaskFormView) {
+            TaskFormView(task: nil)
         }
     }
 }
@@ -76,26 +60,25 @@ struct CoreView_Previews: PreviewProvider {
 extension CoreView {
     private var addTaskButton: some View {
         // Buttons
-        HStack {
-            Button {
-                withAnimation(.linear) {
-                    isPresentedTaskFormView.toggle()
-                }
-            } label: {
-                Image(systemName: isPresentedTaskFormView ? "xmark" : "plus")
-                    .imageScale(.large)
-                    .font(.title)
-                    .frame(width: 60, height: 60)
-                    .foregroundColor(.white)
-                    .shadow(radius: 10, y: 10)
-                    .background(
-                        Circle()
-                            .foregroundColor(isPresentedTaskFormView ? .secondary : .accentColor)
-                            .shadow(radius: 10, y: 10)
-                    )
-                    .animation(nil, value: isPresentedTaskFormView)
+        Button {
+            withAnimation(.linear) {
+                isPresentedTaskFormView.toggle()
             }
+        } label: {
+            Image(systemName: "plus")
+                .imageScale(.large)
+                .font(.title)
+                .frame(width: 60, height: 60)
+                .foregroundColor(.white)
+                .shadow(radius: 10, y: 10)
+                .background(
+                    Circle()
+                        .foregroundColor(.accentColor)
+                        .shadow(radius: 10, y: 10)
+                )
+                .animation(nil, value: isPresentedTaskFormView)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
         .padding(.horizontal)
     }
     
@@ -104,5 +87,18 @@ extension CoreView {
             .font(.title3)
             .foregroundColor(.secondary)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    private var taskListSection: some View {
+        List {
+            Section {
+                ForEach(coreVM.allTasks) { task in
+                    TaskRowView(task: task)
+                        .environmentObject(coreVM)
+                }
+            } header: {
+                Text("Tasks")
+            }
+        }
     }
 }

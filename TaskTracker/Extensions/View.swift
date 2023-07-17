@@ -18,4 +18,8 @@ extension View {
             )
         )
     }
+    
+    func autoCorrectionDisabledTextField() -> some View {
+        self.modifier(TextFieldModifier())
+    }
 }

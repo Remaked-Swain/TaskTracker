@@ -60,7 +60,7 @@ extension TaskRowView {
                     .fontWeight(.bold)
                     .strikethrough(task.isCompleted)
                 
-                Text(task.taskDescription ?? "")
+                Text(task.taskDescription)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .lineLimit(1)
