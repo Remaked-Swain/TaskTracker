@@ -12,33 +12,47 @@ class CoreViewModel: ObservableObject {
     @Published var allTasks: [TaskModel] = DeveloperPreview.instance.tasks
     @Published var allCategories: [String] = ["없음"]
     
-    private let dataService = DataService.shared
-    private let calendarService = CalendarService.shared
+    private let taskDataService: TaskDataService
+    private let categoryDataService: CategoryDataService
+    private var cancellables: Set<AnyCancellable> = []
     
     init() {
+        taskDataService = TaskDataService()
+        categoryDataService = CategoryDataService()
         
+        addSubscriber()
     }
     
-    private func loadTasks() {
+    private func addSubscriber() {
+        taskDataService.$allTasks
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.allTasks, on: self)
+            .store(in: &cancellables)
         
+        categoryDataService.$allCategories
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.allCategories, on: self)
+            .store(in: &cancellables)
     }
     
     // Methods to manage tasks
-    func addTask(task: TaskModel) {
+    func saveTask(task: TaskModel) {
         // 기존 Tasks 중 같은 id 를 가진 할 일이 존재하면 덮어쓰기, 없으면 추가
-        guard let index = allTasks.firstIndex(where: {$0.id == task.id}) else {
+        if let index = allTasks.firstIndex(where: {$0.id == task.id}) {
+            allTasks[index] = task
+        } else {
             allTasks.append(task)
-            return
         }
-        allTasks[index] = task
     }
     
+    func deleteTask(task: TaskModel) {
+        
+    }
+
     // Methods to manage categories
     func addCategory(category: String) {
         // 동일한 이름의 카테고리 무한생성 방지,
-        guard allCategories.contains(category) else {
-            allCategories.append(category)
-            return
-        }
+        guard allCategories.contains(category) == false else { return }
+        allCategories.append(category)
     }
 }

@@ -263,6 +263,6 @@ extension TaskFormView {
             category: category
         )
         
-        coreVM.addTask(task: task)
+        coreVM.saveTask(task: task)
     }
 }

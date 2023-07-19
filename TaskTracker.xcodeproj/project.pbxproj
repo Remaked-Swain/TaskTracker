@@ -13,7 +13,7 @@
 		0459E3642A618941000B0434 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3632A618941000B0434 /* PreviewProvider.swift */; };
 		0459E3672A6189CB000B0434 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3662A6189CB000B0434 /* TaskModel.swift */; };
 		0459E3692A618DBA000B0434 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3682A618DBA000B0434 /* CalendarService.swift */; };
-		0459E36B2A618E50000B0434 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36A2A618E50000B0434 /* DataService.swift */; };
+		0459E36B2A618E50000B0434 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36A2A618E50000B0434 /* CoreDataManager.swift */; };
 		0459E36E2A618EC0000B0434 /* TaskEntity.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36C2A618EC0000B0434 /* TaskEntity.xcdatamodeld */; };
 		0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36F2A619AEE000B0434 /* CoreViewModel.swift */; };
 		0459E3762A61B246000B0434 /* CoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3752A61B246000B0434 /* CoreView.swift */; };
@@ -23,6 +23,9 @@
 		0488BA382A64170500484208 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA372A64170500484208 /* View.swift */; };
 		0488BA3A2A64178F00484208 /* SecondarySystemBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA392A64178F00484208 /* SecondarySystemBackgroundModifier.swift */; };
 		0488BA3C2A64CEE200484208 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA3B2A64CEE200484208 /* TextFieldModifier.swift */; };
+		0488BA3F2A652B4500484208 /* CategoryEntity.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA3D2A652B4500484208 /* CategoryEntity.xcdatamodeld */; };
+		0488BA422A652BFB00484208 /* TaskDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA412A652BFB00484208 /* TaskDataService.swift */; };
+		0488BA442A66376300484208 /* CategoryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA432A66376300484208 /* CategoryDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +36,7 @@
 		0459E3632A618941000B0434 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		0459E3662A6189CB000B0434 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		0459E3682A618DBA000B0434 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
-		0459E36A2A618E50000B0434 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		0459E36A2A618E50000B0434 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0459E36D2A618EC0000B0434 /* TaskEntity.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskEntity.xcdatamodel; sourceTree = "<group>"; };
 		0459E36F2A619AEE000B0434 /* CoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreViewModel.swift; sourceTree = "<group>"; };
 		0459E3712A619CE8000B0434 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -44,6 +47,9 @@
 		0488BA372A64170500484208 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		0488BA392A64178F00484208 /* SecondarySystemBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondarySystemBackgroundModifier.swift; sourceTree = "<group>"; };
 		0488BA3B2A64CEE200484208 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
+		0488BA3E2A652B4500484208 /* CategoryEntity.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CategoryEntity.xcdatamodel; sourceTree = "<group>"; };
+		0488BA412A652BFB00484208 /* TaskDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataService.swift; sourceTree = "<group>"; };
+		0488BA432A66376300484208 /* CategoryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,7 @@
 				0459E34E2A6183EB000B0434 /* TaskTrackerApp.swift */,
 				0488BA342A63F28000484208 /* PreferenceKey */,
 				0459E3742A61B002000B0434 /* Components */,
+				0488BA402A652BBD00484208 /* Utilities */,
 				0459E35F2A6187BE000B0434 /* Services */,
 				0459E35C2A6187A2000B0434 /* Core */,
 				0459E3652A6189AA000B0434 /* Models */,
@@ -129,7 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				0459E3682A618DBA000B0434 /* CalendarService.swift */,
-				0459E36A2A618E50000B0434 /* DataService.swift */,
+				0488BA412A652BFB00484208 /* TaskDataService.swift */,
+				0488BA432A66376300484208 /* CategoryDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -148,6 +156,7 @@
 			children = (
 				0459E3662A6189CB000B0434 /* TaskModel.swift */,
 				0459E36C2A618EC0000B0434 /* TaskEntity.xcdatamodeld */,
+				0488BA3D2A652B4500484208 /* CategoryEntity.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -167,6 +176,14 @@
 				0488BA352A63F29300484208 /* PreferenceKeys.swift */,
 			);
 			path = PreferenceKey;
+			sourceTree = "<group>";
+		};
+		0488BA402A652BBD00484208 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0459E36A2A618E50000B0434 /* CoreDataManager.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0488BA3F2A652B4500484208 /* CategoryEntity.xcdatamodeld in Sources */,
 				0488BA362A63F29300484208 /* PreferenceKeys.swift in Sources */,
 				0459E34F2A6183EB000B0434 /* TaskTrackerApp.swift in Sources */,
 				0488BA332A63EDB400484208 /* TaskFormView.swift in Sources */,
@@ -246,12 +264,14 @@
 				0488BA3C2A64CEE200484208 /* TextFieldModifier.swift in Sources */,
 				0459E3642A618941000B0434 /* PreviewProvider.swift in Sources */,
 				0459E3672A6189CB000B0434 /* TaskModel.swift in Sources */,
-				0459E36B2A618E50000B0434 /* DataService.swift in Sources */,
+				0459E36B2A618E50000B0434 /* CoreDataManager.swift in Sources */,
 				0459E3692A618DBA000B0434 /* CalendarService.swift in Sources */,
 				0488BA382A64170500484208 /* View.swift in Sources */,
 				0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */,
+				0488BA442A66376300484208 /* CategoryDataService.swift in Sources */,
 				0459E3762A61B246000B0434 /* CoreView.swift in Sources */,
 				0488BA3A2A64178F00484208 /* SecondarySystemBackgroundModifier.swift in Sources */,
+				0488BA422A652BFB00484208 /* TaskDataService.swift in Sources */,
 				0459E36E2A618EC0000B0434 /* TaskEntity.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +482,16 @@
 			);
 			currentVersion = 0459E36D2A618EC0000B0434 /* TaskEntity.xcdatamodel */;
 			path = TaskEntity.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		0488BA3D2A652B4500484208 /* CategoryEntity.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0488BA3E2A652B4500484208 /* CategoryEntity.xcdatamodel */,
+			);
+			currentVersion = 0488BA3E2A652B4500484208 /* CategoryEntity.xcdatamodel */;
+			path = CategoryEntity.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

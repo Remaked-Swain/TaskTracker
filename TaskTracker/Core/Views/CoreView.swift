@@ -25,23 +25,30 @@ struct CoreView: View {
                         // menu
                     } label: {
                         Image(systemName: "line.3.horizontal")
+                            .font(.headline)
                     }
                 }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
                     HStack {
                         // searchbar
-                        
                         Button {
                             // search
                         } label: {
                             Image(systemName: "magnifyingglass")
+                                .font(.headline)
+                        }
+                        
+                        // taskFormView nav
+                        Button {
+                            isPresentedTaskFormView.toggle()
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.headline)
                         }
                     }
                 }
             }
-            
-            addTaskButton
         }
         .navigationDestination(isPresented: $isPresentedTaskFormView) {
             TaskFormView(task: nil)
@@ -58,30 +65,6 @@ struct CoreView_Previews: PreviewProvider {
 }
 
 extension CoreView {
-    private var addTaskButton: some View {
-        // Buttons
-        Button {
-            withAnimation(.linear) {
-                isPresentedTaskFormView.toggle()
-            }
-        } label: {
-            Image(systemName: "plus")
-                .imageScale(.large)
-                .font(.title)
-                .frame(width: 60, height: 60)
-                .foregroundColor(.white)
-                .shadow(radius: 10, y: 10)
-                .background(
-                    Circle()
-                        .foregroundColor(.accentColor)
-                        .shadow(radius: 10, y: 10)
-                )
-                .animation(nil, value: isPresentedTaskFormView)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-        .padding(.horizontal)
-    }
-    
     private var noTasksText: some View {
         Text("할 일을 추가해보세요!")
             .font(.title3)

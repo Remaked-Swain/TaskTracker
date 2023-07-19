@@ -8,10 +8,14 @@
 import Foundation
 import CoreData
 
-class DataService {
-    static let shared = DataService()
+class CoreDataManager {
+    static let shared = CoreDataManager()
     
     private let persistentContainer: NSPersistentContainer
+    
+    var viewContext: NSManagedObjectContext {
+        return persistentContainer.viewContext
+    }
     
     private init() {
         self.persistentContainer = NSPersistentContainer(name: "TaskTracker")
@@ -20,10 +24,6 @@ class DataService {
                 fatalError("persistentStore error: \(error)")
             }
         }
-    }
-    
-    var viewContext: NSManagedObjectContext {
-        return persistentContainer.viewContext
     }
     
     func saveContext() {
@@ -37,6 +37,7 @@ class DataService {
         }
     }
     
+    // Methods to manage Tasks
     func saveTask(_ task: TaskModel) {
         viewContext.perform { [weak self] in
             guard let context = self?.viewContext else { return }
@@ -90,25 +91,57 @@ class DataService {
         }
     }
     
-    func fetchTasks(completion: @escaping ([TaskModel]) -> Void) {
+    func fetchTasks(completion: @escaping ([TaskEntity]) -> Void) {
         viewContext.perform { [weak self] in
             let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
             
             do {
-                let taskEntities = try self?.viewContext.fetch(request)
-                let tasks = taskEntities?.map { taskEntity in
-                    TaskModel(
-                        id: taskEntity.id ?? UUID(),
-                        title: taskEntity.title ?? "새로운 할 일",
-                        taskDescription: taskEntity.taskDescription,
-                        deadline: taskEntity.deadline,
-                        isCompleted: taskEntity.isCompleted,
-                        category: taskEntity.category
-                    )
-                } ?? []
-                completion(tasks)
+                let taskEntities = try self?.viewContext.fetch(request) ?? []
+                completion(taskEntities)
             } catch let error {
                 print("Failed to fetch tasks: \(error)")
+                completion([])
+            }
+        }
+    }
+    
+    // Methods to manage Categories
+    func saveCategory(_ category: String) {
+        viewContext.perform { [weak self] in
+            guard let context = self?.viewContext else { return }
+            
+            let newCategory = CategoryEntity(context: context)
+            newCategory.name = category
+            
+            self?.saveContext()
+        }
+    }
+    
+    func deleteCategory(_ category: String) {
+        viewContext.perform { [weak self] in
+            let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
+            request.predicate = NSPredicate(format: "name == %@", category)
+            
+            do {
+                if let result = try self?.viewContext.fetch(request).first {
+                    self?.viewContext.delete(result)
+                    self?.saveContext()
+                }
+            } catch let error {
+                print("Failed to delete category: \(error)")
+            }
+        }
+    }
+    
+    func fetchCategories(completion: @escaping ([CategoryEntity]) -> Void) {
+        viewContext.perform { [weak self] in
+            let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
+            
+            do {
+                let categoryEntities = try self?.viewContext.fetch(request) ?? []
+                completion(categoryEntities)
+            } catch let error {
+                print("Failed to fetch categories: \(error)")
                 completion([])
             }
         }
