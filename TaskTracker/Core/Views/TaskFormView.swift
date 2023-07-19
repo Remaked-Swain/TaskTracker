@@ -62,9 +62,9 @@ struct TaskFormView: View {
                 
                 categoryPickerSection
                     .secondarySystemBackgroundModifier()
+                
+                controlButtons
             }
-            
-            controlButtons
         }
         .navigationTitle("할 일 편집")
         .padding()
@@ -81,49 +81,6 @@ struct TaskFormView_Previews: PreviewProvider {
 }
 
 extension TaskFormView {
-    private var controlButtons: some View {
-        // Buttons
-        HStack {
-            if title.isEmpty == false || taskDescription.isEmpty == false || datePickerIsOn || categoryPickerIsOn {
-                Button {
-                    allClear()
-                } label: {
-                    Image(systemName: "gobackward")
-                        .imageScale(.large)
-                        .font(.title)
-                        .frame(width: 60, height: 60)
-                        .foregroundColor(.white)
-                        .shadow(radius: 10, y: 10)
-                        .background(
-                            Circle()
-                                .foregroundColor(.secondary)
-                                .shadow(radius: 10, y: 10)
-                        )
-                }
-            }
-            
-            Button {
-                withAnimation(.linear) {
-                    saveTask()
-                }
-            } label: {
-                Image(systemName: "checkmark")
-                    .imageScale(.large)
-                    .font(.title)
-                    .frame(width: 60, height: 60)
-                    .foregroundColor(.white)
-                    .shadow(radius: 10, y: 10)
-                    .background(
-                        Circle()
-                            .foregroundColor(.accentColor)
-                            .shadow(radius: 10, y: 10)
-                    )
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-        .padding(.horizontal)
-    }
-    
     private var datePickerSection: some View {
         VStack {
             HStack {
@@ -216,6 +173,39 @@ extension TaskFormView {
             }
         }
         .padding()
+    }
+    
+    private var controlButtons: some View {
+        HStack {
+            if title.isEmpty == false || taskDescription.isEmpty == false || datePickerIsOn || categoryPickerIsOn {
+                Button {
+                    allClear()
+                } label: {
+                    Text("재설정")
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 55)
+                        .foregroundColor(.white)
+                        .background(Color.secondary.cornerRadius(10))
+                }
+            }
+            
+            Button {
+                saveTask()
+            } label: {
+                Text("완료")
+                    .font(.headline)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 55)
+                    .foregroundColor(.white)
+                    .background(Color.accentColor.cornerRadius(10))
+            }
+
+        }
+        .frame(maxWidth: .infinity)
+        .shadow(radius: 10, y: 10)
     }
     
     private func allClear() {
