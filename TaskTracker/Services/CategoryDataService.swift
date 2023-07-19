@@ -9,15 +9,15 @@ import Foundation
 import Combine
 
 class CategoryDataService: ObservableObject {
-    @Published var allCategories: [String] = ["없음"]
+    private var allCategories: [String] = ["없음"]
     
     private let coreDataManager = CoreDataManager.shared
     
     init() {
-        setupObserver()
+        fetchCategories()
     }
     
-    private func setupObserver() {
+    private func fetchCategories() {
         coreDataManager.fetchCategories { [weak self] categoryEntities in
             let categories = categoryEntities.map {$0.name}
             
@@ -28,11 +28,17 @@ class CategoryDataService: ObservableObject {
         }
     }
     
-    func addCategory(_ category: String) {
+    func createCategory(_ category: String) {
         // "없음" 카테고리의 무한생성 방지
         guard category != "없음" else { return }
         
         coreDataManager.saveCategory(category)
+        fetchCategories()
+    }
+    
+    func readCategories() -> [String] {
+        fetchCategories()
+        return self.allCategories
     }
     
     func deleteCategory(_ category: String) {
@@ -40,5 +46,6 @@ class CategoryDataService: ObservableObject {
         guard category != "없음" else { return }
         
         coreDataManager.deleteCategory(category)
+        fetchCategories()
     }
 }

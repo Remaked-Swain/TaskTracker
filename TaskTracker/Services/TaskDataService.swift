@@ -9,15 +9,11 @@ import Foundation
 import Combine
 
 class TaskDataService: ObservableObject {
-    @Published var allTasks: [TaskModel] = []
+    private var allTasks: [TaskModel] = []
     
     private let coreDataManager = CoreDataManager.shared
     
     init() {
-        setupObserver()
-    }
-    
-    private func setupObserver() {
         fetchTasks()
     }
     
@@ -48,15 +44,23 @@ class TaskDataService: ObservableObject {
         }
     }
     
-    func addTask(_ task: TaskModel) {
+    func createTask(_ task: TaskModel) {
         coreDataManager.saveTask(task)
+        fetchTasks()
+    }
+    
+    func readTasks() -> [TaskModel] {
+        fetchTasks()
+        return self.allTasks
     }
     
     func updateTask(_ task: TaskModel) {
         coreDataManager.updateTask(task)
+        fetchTasks()
     }
     
     func deleteTask(_ task: TaskModel) {
         coreDataManager.deleteTask(task)
+        fetchTasks()
     }
 }

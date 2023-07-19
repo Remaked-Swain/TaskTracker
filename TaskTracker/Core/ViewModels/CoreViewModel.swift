@@ -14,26 +14,17 @@ class CoreViewModel: ObservableObject {
     
     private let taskDataService: TaskDataService
     private let categoryDataService: CategoryDataService
-    private var cancellables: Set<AnyCancellable> = []
     
     init() {
         taskDataService = TaskDataService()
         categoryDataService = CategoryDataService()
         
-        addSubscriber()
+        fetchTasks()
+        fetchCategories()
     }
     
-    private func addSubscriber() {
-        taskDataService.$allTasks
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.allTasks, on: self)
-            .store(in: &cancellables)
-        
-        categoryDataService.$allCategories
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.allCategories, on: self)
-            .store(in: &cancellables)
-    }
+    private func fetchTasks() { self.allTasks = taskDataService.readTasks() }
+    private func fetchCategories() { self.allCategories = categoryDataService.readCategories() }
     
     // Methods to manage tasks
     func saveTask(task: TaskModel) {
@@ -43,10 +34,13 @@ class CoreViewModel: ObservableObject {
         } else {
             allTasks.append(task)
         }
+        
+        fetchTasks()
     }
     
     func deleteTask(task: TaskModel) {
-        
+        taskDataService.deleteTask(task)
+        fetchTasks()
     }
 
     // Methods to manage categories
@@ -54,5 +48,10 @@ class CoreViewModel: ObservableObject {
         // 동일한 이름의 카테고리 무한생성 방지,
         guard allCategories.contains(category) == false else { return }
         allCategories.append(category)
+    }
+    
+    func deleteCategory(category: String) {
+        guard let index = allCategories.firstIndex(of: category) else { return }
+        allCategories.remove(at: index)
     }
 }
