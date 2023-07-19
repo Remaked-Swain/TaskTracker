@@ -11,50 +11,52 @@ struct TaskFormView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var coreVM: CoreViewModel
     
-    @State private var task: TaskModel
-    @State private var id: UUID
-    @State private var title: String
-    @State private var taskDescription: String
-    @State private var deadline: Date?
-    @State private var category: String?
+    @State private var tmpTask: TaskModel
+    @State private var tmpID: UUID
+    @State private var tmpTitle: String?
+    @State private var tmpTaskDescription: String?
+    @State private var tmpDeadline: Date?
+    @State private var tmpCategory: String?
     
     @State private var datePickerIsOn: Bool = false
     @State private var datePickerSelection: Date = Date()
     @State private var categoryPickerIsOn: Bool = false
     @State private var categoryPickerSelection: String = "없음"
     
-    @State private var tmpCategory: String = ""
+    @State private var textFieldTitle: String = ""
+    @State private var textFieldTaskDescription: String = ""
+    @State private var textFieldCategory: String = ""
     
     // 기존의 task 를 편집할 때는 task 가 전달되고, 새로운 task 를 만들 때는 nil 이 전달되어 이니셜라이징됨
     init(task: TaskModel?) {
         if let task = task {
-            self._task = State(initialValue: task)
-            self._id = State(initialValue: task.id)
-            self._title = State(initialValue: task.title)
-            self._taskDescription = State(initialValue: task.taskDescription)
-            self._deadline = State(initialValue: task.deadline)
+            self._tmpTask = State(initialValue: task)
+            self._tmpID = State(initialValue: task.id)
+            self._tmpTitle = State(initialValue: task.title)
+            self._tmpTaskDescription = State(initialValue: task.taskDescription)
+            self._tmpDeadline = State(initialValue: task.deadline)
             self.datePickerSelection = task.deadline ?? Date()
-            self._category = State(initialValue: task.category)
+            self._tmpCategory = State(initialValue: task.category)
             self.categoryPickerSelection = task.category ?? ""
         } else {
-            self._task = State(initialValue: TaskModel())
-            self._id = State(initialValue: UUID())
-            self._title = State(initialValue: "")
-            self._taskDescription = State(initialValue: "")
-            self._deadline = State(initialValue: nil)
-            self._category = State(initialValue: nil)
+            self._tmpTask = State(initialValue: TaskModel())
+            self._tmpID = State(initialValue: UUID())
+            self._tmpTitle = State(initialValue: nil)
+            self._tmpTaskDescription = State(initialValue: nil)
+            self._tmpDeadline = State(initialValue: nil)
+            self._tmpCategory = State(initialValue: nil)
         }
     }
     
     var body: some View {
         ZStack {
             ScrollView {
-                TextField("제목", text: $title)
+                TextField("제목", text: $textFieldTitle)
                     .autoCorrectionDisabledTextField()
                     .padding()
                     .secondarySystemBackgroundModifier()
                 
-                TextField("할 일에 대한 설명", text: $taskDescription)
+                TextField("할 일에 대한 설명", text: $textFieldTaskDescription)
                     .autoCorrectionDisabledTextField()
                     .padding()
                     .secondarySystemBackgroundModifier()
@@ -151,7 +153,7 @@ extension TaskFormView {
                 .pickerStyle(.inline)
                 
                 HStack {
-                    TextField("새로운 카테고리", text: $tmpCategory)
+                    TextField("새로운 카테고리", text: $textFieldCategory)
                         .autoCorrectionDisabledTextField()
                         .padding()
                         .background(
@@ -177,7 +179,7 @@ extension TaskFormView {
     
     private var controlButtons: some View {
         HStack {
-            if title.isEmpty == false || taskDescription.isEmpty == false || datePickerIsOn || categoryPickerIsOn {
+            if textFieldTitle.isEmpty == false || textFieldTaskDescription.isEmpty == false || datePickerIsOn || categoryPickerIsOn {
                 Button {
                     allClear()
                 } label: {
@@ -210,23 +212,22 @@ extension TaskFormView {
     
     private func allClear() {
         withAnimation(.easeInOut) {
-            title = ""
-            taskDescription = ""
+            textFieldTitle = ""
+            textFieldTaskDescription = ""
             datePickerSelection = Date()
             datePickerIsOn = false
             categoryPickerIsOn = false
             categoryPickerSelection = "없음"
-            tmpCategory = ""
         }
     }
     
     private func addNewCategory() {
-        guard tmpCategory.isEmpty else {
-            coreVM.addCategory(category: tmpCategory)
+        guard textFieldCategory.isEmpty else {
+            coreVM.createCategory(category: textFieldCategory)
             return
         }
         
-        coreVM.addCategory(category: "새로운 카테고리")
+        coreVM.createCategory(category: "새로운 카테고리")
     }
     
     private func saveTask() {
@@ -234,26 +235,26 @@ extension TaskFormView {
         // 1. datePicker check
         // 2. category check
         if datePickerIsOn == false {
-            deadline = nil
+            tmpDeadline = nil
         } else {
-            deadline = datePickerSelection
+            tmpDeadline = datePickerSelection
         }
         
         if categoryPickerIsOn == false {
-            category = nil
+            tmpCategory = nil
         } else {
-            category = categoryPickerSelection
+            tmpCategory = categoryPickerSelection
         }
 
-        self.task = TaskModel(
-            id: id,
-            title: title,
-            taskDescription: taskDescription,
-            deadline: deadline,
-            category: category
+        self.tmpTask = TaskModel(
+            id: tmpID,
+            title: tmpTitle,
+            taskDescription: tmpTaskDescription,
+            deadline: tmpDeadline,
+            category: tmpCategory
         )
         
-        coreVM.saveTask(task: task)
+        coreVM.saveTask(task: tmpTask)
         
         dismiss()
     }

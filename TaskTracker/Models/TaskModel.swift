@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TaskModel: Identifiable {
+struct TaskModel: Identifiable, Hashable {
     let id: UUID
     let title: String
     let taskDescription: String
@@ -21,6 +21,6 @@ struct TaskModel: Identifiable {
         self.taskDescription = taskDescription ?? ""
         self.deadline = deadline
         self.isCompleted = isCompleted
-        self.category = category
+        self.category = category ?? "없음"
     }
 }

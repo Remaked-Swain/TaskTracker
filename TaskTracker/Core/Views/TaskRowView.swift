@@ -51,7 +51,7 @@ extension TaskRowView {
                 }
             }
             .onTapGesture {
-                
+                coreVM.updateTask(task: task)
             }
             
             VStack(alignment: .leading) {

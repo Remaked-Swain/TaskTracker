@@ -10,8 +10,6 @@ import SwiftUI
 struct CoreView: View {
     @StateObject private var coreVM = CoreViewModel()
     
-    @State private var isPresentedTaskFormView: Bool = false
-    
     var body: some View {
         ZStack {
             // Background layer
@@ -45,8 +43,9 @@ struct CoreView: View {
                     }
                     
                     // taskFormView nav
-                    Button {
-                        isPresentedTaskFormView.toggle()
+                    NavigationLink {
+                        TaskFormView(task: nil)
+                            .environmentObject(coreVM)
                     } label: {
                         Image(systemName: "plus")
                             .font(.headline)
@@ -54,9 +53,8 @@ struct CoreView: View {
                 }
             }
         }
-        .navigationDestination(isPresented: $isPresentedTaskFormView) {
-            TaskFormView(task: nil)
-                .environmentObject(coreVM)
+        .navigationDestination(for: TaskModel.self) { task in
+            TaskFormView(task: task)
         }
     }
 }

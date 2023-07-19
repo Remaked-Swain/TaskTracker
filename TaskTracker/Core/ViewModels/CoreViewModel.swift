@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class CoreViewModel: ObservableObject {
-    @Published var allTasks: [TaskModel] = []
+    @Published var allTasks: [TaskModel] = DeveloperPreview.instance.tasks
     @Published var allCategories: [String] = ["없음"]
     
     private let taskDataService: TaskDataService
@@ -44,9 +44,14 @@ class CoreViewModel: ObservableObject {
         taskDataService.deleteTask(task)
         fetchTasks()
     }
+    
+    func updateTask(task: TaskModel) {
+        taskDataService.updateTask(task)
+        fetchTasks()
+    }
 
     // Methods to manage categories
-    func addCategory(category: String) {
+    func createCategory(category: String) {
         // 동일한 이름의 카테고리 무한생성 방지,
         guard allCategories.contains(category) == false else { return }
         allCategories.append(category)
