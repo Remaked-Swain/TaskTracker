@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct TaskFormView: View {
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var coreVM: CoreViewModel
+    
     @State private var task: TaskModel
     @State private var id: UUID
     @State private var title: String
@@ -94,7 +96,6 @@ extension TaskFormView {
                 Spacer()
                 
                 Image(systemName: "chevron.down")
-                    .imageScale(.large)
                     .fontWeight(.semibold)
                     .rotationEffect(Angle(degrees: datePickerIsOn ? 180 : 0))
                     .foregroundColor(.accentColor)
@@ -129,7 +130,6 @@ extension TaskFormView {
                 Spacer()
                 
                 Image(systemName: "chevron.down")
-                    .imageScale(.large)
                     .fontWeight(.semibold)
                     .rotationEffect(Angle(degrees: categoryPickerIsOn ? 180 : 0))
                     .foregroundColor(.accentColor)
@@ -254,5 +254,7 @@ extension TaskFormView {
         )
         
         coreVM.saveTask(task: task)
+        
+        dismiss()
     }
 }

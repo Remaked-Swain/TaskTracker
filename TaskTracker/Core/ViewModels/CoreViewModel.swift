@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class CoreViewModel: ObservableObject {
-    @Published var allTasks: [TaskModel] = DeveloperPreview.instance.tasks
+    @Published var allTasks: [TaskModel] = []
     @Published var allCategories: [String] = ["없음"]
     
     private let taskDataService: TaskDataService
