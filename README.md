@@ -20,5 +20,4 @@
 
 #### To-Do
     1. CoreDataManager 기능 오류 해결
-    2. TaskFormView 내 textField FocusState 관리
-    3. TaskFormView 내 textField 조작 중 Software keyboard 액션 조정
+    2. TaskFormView 내 textField 조작 중 Software keyboard 액션 조정

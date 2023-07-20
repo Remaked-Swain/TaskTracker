@@ -16,7 +16,6 @@ struct TaskFormView: View {
     
     init(task: TaskModel?) {
         _taskFormVM = StateObject(wrappedValue: TaskFormViewModel(task: task))
-        textFieldFocused = true
     }
     
     var body: some View {
@@ -46,6 +45,9 @@ struct TaskFormView: View {
         }
         .navigationTitle("할 일 편집")
         .padding()
+        .onAppear {
+            textFieldFocused = true
+        }
     }
 }
 
