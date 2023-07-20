@@ -20,5 +20,5 @@
 
 #### To-Do
     1. CoreDataManager 기능 오류 해결
-    2. 날짜나 시간과 관련한 모든 로직을 CalendarService 로 이동, 통합시켜 관리
-    3. TaskFormView 내 textField FocusState 관리
+    2. TaskFormView 내 textField FocusState 관리
+    3. TaskFormView 내 textField 조작 중 Software keyboard 액션 조정

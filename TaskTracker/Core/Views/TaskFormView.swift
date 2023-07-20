@@ -12,9 +12,11 @@ struct TaskFormView: View {
     @EnvironmentObject private var coreVM: CoreViewModel
     
     @StateObject private var taskFormVM: TaskFormViewModel
+    @FocusState private var textFieldFocused: Bool
     
     init(task: TaskModel?) {
         _taskFormVM = StateObject(wrappedValue: TaskFormViewModel(task: task))
+        textFieldFocused = true
     }
     
     var body: some View {
@@ -22,6 +24,7 @@ struct TaskFormView: View {
             VStack {
                 ScrollView {
                     TextField("제목", text: $taskFormVM.textFieldTitle)
+                        .focused($textFieldFocused)
                         .autoCorrectionDisabledTextField()
                         .padding()
                         .secondarySystemBackgroundModifier()
