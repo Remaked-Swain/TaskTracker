@@ -190,7 +190,6 @@ extension TaskFormView {
     private func saveTask() {
         let tmpTask = taskFormVM.taskIntegrityCheck()
         coreVM.saveTask(task: tmpTask)
-        
         dismiss()
     }
     

@@ -17,9 +17,11 @@ class CalendarService {
         dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
+        dateFormatter.locale = Locale(identifier: "ko_KR")
     }
     
-    func formatDate(_ date: Date) -> String {
+    func formatDate(_ date: Date?) -> String {
+        guard let date = date else { return "" }
         return dateFormatter.string(from: date)
     }
     
