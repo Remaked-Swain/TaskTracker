@@ -20,6 +20,8 @@ struct DeveloperPreview {
     private init() {}
     
     static let currentDate = Date()
+    
+    let coreDataManager = CoreDataManager.shared
 
     let tasks: [TaskModel] = [
         TaskModel(title: "식료품 구매", taskDescription: "우유, 달걀, 빵", deadline: currentDate.addingTimeInterval(3600)),

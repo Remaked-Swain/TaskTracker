@@ -22,9 +22,8 @@
 		0488BA382A64170500484208 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA372A64170500484208 /* View.swift */; };
 		0488BA3A2A64178F00484208 /* SecondarySystemBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA392A64178F00484208 /* SecondarySystemBackgroundModifier.swift */; };
 		0488BA3C2A64CEE200484208 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA3B2A64CEE200484208 /* TextFieldModifier.swift */; };
-		0488BA422A652BFB00484208 /* TaskDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA412A652BFB00484208 /* TaskDataService.swift */; };
-		0488BA442A66376300484208 /* CategoryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA432A66376300484208 /* CategoryDataService.swift */; };
-		0488BA472A68301A00484208 /* TaskTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA452A68301A00484208 /* TaskTracker.xcdatamodeld */; };
+		0488BA4C2A6916B900484208 /* TaskTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA4A2A6916B900484208 /* TaskTracker.xcdatamodeld */; };
+		0488BA4E2A691EBC00484208 /* TaskFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA4D2A691EBC00484208 /* TaskFormViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,9 +44,8 @@
 		0488BA372A64170500484208 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		0488BA392A64178F00484208 /* SecondarySystemBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondarySystemBackgroundModifier.swift; sourceTree = "<group>"; };
 		0488BA3B2A64CEE200484208 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
-		0488BA412A652BFB00484208 /* TaskDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataService.swift; sourceTree = "<group>"; };
-		0488BA432A66376300484208 /* CategoryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataService.swift; sourceTree = "<group>"; };
-		0488BA462A68301A00484208 /* TaskTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskTracker.xcdatamodel; sourceTree = "<group>"; };
+		0488BA4B2A6916B900484208 /* TaskEntity.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskEntity.xcdatamodel; sourceTree = "<group>"; };
+		0488BA4D2A691EBC00484208 /* TaskFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				0459E36F2A619AEE000B0434 /* CoreViewModel.swift */,
+				0488BA4D2A691EBC00484208 /* TaskFormViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -134,8 +133,6 @@
 			isa = PBXGroup;
 			children = (
 				0459E3682A618DBA000B0434 /* CalendarService.swift */,
-				0488BA412A652BFB00484208 /* TaskDataService.swift */,
-				0488BA432A66376300484208 /* CategoryDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -153,7 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				0459E3662A6189CB000B0434 /* TaskModel.swift */,
-				0488BA452A68301A00484208 /* TaskTracker.xcdatamodeld */,
+				0488BA4A2A6916B900484208 /* TaskTracker.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -255,20 +252,19 @@
 			files = (
 				0488BA362A63F29300484208 /* PreferenceKeys.swift in Sources */,
 				0459E34F2A6183EB000B0434 /* TaskTrackerApp.swift in Sources */,
-				0488BA472A68301A00484208 /* TaskTracker.xcdatamodeld in Sources */,
 				0488BA332A63EDB400484208 /* TaskFormView.swift in Sources */,
 				0488BA2C2A62557B00484208 /* TaskRowView.swift in Sources */,
 				0488BA3C2A64CEE200484208 /* TextFieldModifier.swift in Sources */,
 				0459E3642A618941000B0434 /* PreviewProvider.swift in Sources */,
 				0459E3672A6189CB000B0434 /* TaskModel.swift in Sources */,
+				0488BA4E2A691EBC00484208 /* TaskFormViewModel.swift in Sources */,
 				0459E36B2A618E50000B0434 /* CoreDataManager.swift in Sources */,
 				0459E3692A618DBA000B0434 /* CalendarService.swift in Sources */,
 				0488BA382A64170500484208 /* View.swift in Sources */,
 				0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */,
-				0488BA442A66376300484208 /* CategoryDataService.swift in Sources */,
 				0459E3762A61B246000B0434 /* CoreView.swift in Sources */,
 				0488BA3A2A64178F00484208 /* SecondarySystemBackgroundModifier.swift in Sources */,
-				0488BA422A652BFB00484208 /* TaskDataService.swift in Sources */,
+				0488BA4C2A6916B900484208 /* TaskTracker.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,12 +467,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		0488BA452A68301A00484208 /* TaskTracker.xcdatamodeld */ = {
+		0488BA4A2A6916B900484208 /* TaskTracker.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				0488BA462A68301A00484208 /* TaskTracker.xcdatamodel */,
+				0488BA4B2A6916B900484208 /* TaskEntity.xcdatamodel */,
 			);
-			currentVersion = 0488BA462A68301A00484208 /* TaskTracker.xcdatamodel */;
+			currentVersion = 0488BA4B2A6916B900484208 /* TaskEntity.xcdatamodel */;
 			path = TaskTracker.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -11,61 +11,32 @@ struct TaskFormView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var coreVM: CoreViewModel
     
-    @State private var tmpTask: TaskModel
-    @State private var tmpID: UUID
-    @State private var tmpTitle: String?
-    @State private var tmpTaskDescription: String?
-    @State private var tmpDeadline: Date?
-    @State private var tmpCategory: String?
+    @StateObject private var taskFormVM: TaskFormViewModel
     
-    @State private var datePickerIsOn: Bool = false
-    @State private var datePickerSelection: Date = Date()
-    @State private var categoryPickerIsOn: Bool = false
-    @State private var categoryPickerSelection: String = "없음"
-    
-    @State private var textFieldTitle: String = ""
-    @State private var textFieldTaskDescription: String = ""
-    @State private var textFieldCategory: String = ""
-    
-    // 기존의 task 를 편집할 때는 task 가 전달되고, 새로운 task 를 만들 때는 nil 이 전달되어 이니셜라이징됨
     init(task: TaskModel?) {
-        if let task = task {
-            self._tmpTask = State(initialValue: task)
-            self._tmpID = State(initialValue: task.id)
-            self._tmpTitle = State(initialValue: task.title)
-            self._tmpTaskDescription = State(initialValue: task.taskDescription)
-            self._tmpDeadline = State(initialValue: task.deadline)
-            self.datePickerSelection = task.deadline ?? Date()
-            self._tmpCategory = State(initialValue: task.category)
-            self.categoryPickerSelection = task.category ?? ""
-        } else {
-            self._tmpTask = State(initialValue: TaskModel())
-            self._tmpID = State(initialValue: UUID())
-            self._tmpTitle = State(initialValue: nil)
-            self._tmpTaskDescription = State(initialValue: nil)
-            self._tmpDeadline = State(initialValue: nil)
-            self._tmpCategory = State(initialValue: nil)
-        }
+        _taskFormVM = StateObject(wrappedValue: TaskFormViewModel(task: task))
     }
     
     var body: some View {
         ZStack {
-            ScrollView {
-                TextField("제목", text: $textFieldTitle)
-                    .autoCorrectionDisabledTextField()
-                    .padding()
-                    .secondarySystemBackgroundModifier()
-                
-                TextField("할 일에 대한 설명", text: $textFieldTaskDescription)
-                    .autoCorrectionDisabledTextField()
-                    .padding()
-                    .secondarySystemBackgroundModifier()
-                
-                datePickerSection
-                    .secondarySystemBackgroundModifier()
-                
-                categoryPickerSection
-                    .secondarySystemBackgroundModifier()
+            VStack {
+                ScrollView {
+                    TextField("제목", text: $taskFormVM.textFieldTitle)
+                        .autoCorrectionDisabledTextField()
+                        .padding()
+                        .secondarySystemBackgroundModifier()
+                    
+                    TextField("할 일에 대한 설명", text: $taskFormVM.textFieldTaskDescription)
+                        .autoCorrectionDisabledTextField()
+                        .padding()
+                        .secondarySystemBackgroundModifier()
+                    
+                    datePickerSection
+                        .secondarySystemBackgroundModifier()
+                    
+                    categoryPickerSection
+                        .secondarySystemBackgroundModifier()
+                }
                 
                 controlButtons
             }
@@ -79,7 +50,7 @@ struct TaskFormView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             TaskFormView(task: dev.tasks.first!)
-                .environmentObject(CoreViewModel())
+                .environmentObject(CoreViewModel(coreDataManager: dev.coreDataManager))
         }
     }
 }
@@ -91,25 +62,25 @@ extension TaskFormView {
                 Image(systemName: "calendar")
                     .imageScale(.large)
                     .fontWeight(.semibold)
-                    .foregroundColor(datePickerIsOn ? .accentColor : .secondary)
+                    .foregroundColor(taskFormVM.datePickerIsOn ? .accentColor : .secondary)
                 
                 Text("마감기한")
                 
                 Spacer()
                 
-                Image(systemName: "chevron.down")
+                Image(systemName: "chevron.up")
                     .fontWeight(.semibold)
-                    .rotationEffect(Angle(degrees: datePickerIsOn ? 180 : 0))
+                    .rotationEffect(Angle(degrees: taskFormVM.datePickerIsOn ? 0 : 180))
                     .foregroundColor(.accentColor)
             }
             .onTapGesture {
                 withAnimation(.easeInOut) {
-                    datePickerIsOn.toggle()
+                    taskFormVM.datePickerToggle()
                 }
             }
             
-            if datePickerIsOn {
-                DatePicker(selection: $datePickerSelection) {
+            if taskFormVM.datePickerIsOn {
+                DatePicker(selection: $taskFormVM.datePickerSelection) {
                     Text("마감기한")
                 }
                 .datePickerStyle(.graphical)
@@ -125,25 +96,25 @@ extension TaskFormView {
                 Image(systemName: "folder")
                     .imageScale(.large)
                     .fontWeight(.semibold)
-                    .foregroundColor(categoryPickerIsOn ? .accentColor : .secondary)
+                    .foregroundColor(taskFormVM.categoryPickerIsOn ? .accentColor : .secondary)
                 
                 Text("카테고리")
                 
                 Spacer()
                 
-                Image(systemName: "chevron.down")
+                Image(systemName: "chevron.up")
                     .fontWeight(.semibold)
-                    .rotationEffect(Angle(degrees: categoryPickerIsOn ? 180 : 0))
+                    .rotationEffect(Angle(degrees: taskFormVM.categoryPickerIsOn ? 0 : 180))
                     .foregroundColor(.accentColor)
             }
             .onTapGesture {
                 withAnimation(.easeInOut) {
-                    categoryPickerIsOn.toggle()
+                    taskFormVM.categoryPickerToggle()
                 }
             }
             
-            if categoryPickerIsOn {
-                Picker(selection: $categoryPickerSelection) {
+            if taskFormVM.categoryPickerIsOn {
+                Picker(selection: $taskFormVM.categoryPickerSelection) {
                     ForEach(coreVM.allCategories, id: \.self) { selectableCategory in
                         Text(selectableCategory)
                     }
@@ -153,7 +124,7 @@ extension TaskFormView {
                 .pickerStyle(.inline)
                 
                 HStack {
-                    TextField("새로운 카테고리", text: $textFieldCategory)
+                    TextField("새로운 카테고리", text: $taskFormVM.textFieldCategory)
                         .autoCorrectionDisabledTextField()
                         .padding()
                         .background(
@@ -179,7 +150,7 @@ extension TaskFormView {
     
     private var controlButtons: some View {
         HStack {
-            if textFieldTitle.isEmpty == false || textFieldTaskDescription.isEmpty == false || datePickerIsOn || categoryPickerIsOn {
+            if taskFormVM.onEditing {
                 Button {
                     allClear()
                 } label: {
@@ -207,54 +178,23 @@ extension TaskFormView {
 
         }
         .frame(maxWidth: .infinity)
-        .shadow(radius: 10, y: 10)
+        .shadow(radius: 10, y: 20)
     }
     
     private func allClear() {
         withAnimation(.easeInOut) {
-            textFieldTitle = ""
-            textFieldTaskDescription = ""
-            datePickerSelection = Date()
-            datePickerIsOn = false
-            categoryPickerIsOn = false
-            categoryPickerSelection = "없음"
+            taskFormVM.allClear()
         }
     }
     
     private func addNewCategory() {
-        guard textFieldCategory.isEmpty else {
-            coreVM.createCategory(category: textFieldCategory)
-            return
-        }
-        
-        coreVM.createCategory(category: "새로운 카테고리")
+        let newCategory = taskFormVM.categoryIntegrityCheck()
+//        coreVM.createCategory(category: newCategory)
     }
     
     private func saveTask() {
-        // Integrity check
-        // 1. datePicker check
-        // 2. category check
-        if datePickerIsOn == false {
-            tmpDeadline = nil
-        } else {
-            tmpDeadline = datePickerSelection
-        }
-        
-        if categoryPickerIsOn == false {
-            tmpCategory = nil
-        } else {
-            tmpCategory = categoryPickerSelection
-        }
-
-        self.tmpTask = TaskModel(
-            id: tmpID,
-            title: tmpTitle,
-            taskDescription: tmpTaskDescription,
-            deadline: tmpDeadline,
-            category: tmpCategory
-        )
-        
-        coreVM.saveTask(task: tmpTask)
+        let newTask = taskFormVM.taskIntegrityCheck()
+//        coreVM.saveTask(task: tmpTask)
         
         dismiss()
     }

@@ -15,8 +15,8 @@ struct TaskModel: Identifiable, Hashable {
     let isCompleted: Bool
     let category: String?
     
-    init(id: UUID = UUID(), title: String? = nil, taskDescription: String? = nil, deadline: Date? = nil, isCompleted: Bool = false, category: String? = nil) {
-        self.id = id
+    init(id: UUID? = UUID(), title: String? = nil, taskDescription: String? = nil, deadline: Date? = nil, isCompleted: Bool = false, category: String? = nil) {
+        self.id = id ?? UUID()
         self.title = title ?? "새로운 할 일"
         self.taskDescription = taskDescription ?? ""
         self.deadline = deadline

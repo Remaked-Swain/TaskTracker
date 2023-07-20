@@ -22,7 +22,7 @@ struct TaskRowView: View {
 struct TaskRowView_Previews: PreviewProvider {
     static var previews: some View {
         TaskRowView(task: dev.tasks.first!)
-            .environmentObject(CoreViewModel())
+            .environmentObject(CoreViewModel(coreDataManager: dev.coreDataManager))
     }
 }
 
@@ -51,7 +51,7 @@ extension TaskRowView {
                 }
             }
             .onTapGesture {
-                coreVM.updateTask(task: task)
+//                coreVM.updateTask(task: task)
             }
             
             VStack(alignment: .leading) {

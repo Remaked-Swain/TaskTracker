@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CoreView: View {
-    @StateObject private var coreVM = CoreViewModel()
+    @StateObject private var coreVM = CoreViewModel(coreDataManager: CoreDataManager.shared)
     
     var body: some View {
         ZStack {
