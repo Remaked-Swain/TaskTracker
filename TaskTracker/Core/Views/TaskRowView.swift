@@ -38,10 +38,10 @@ extension TaskRowView {
     private var taskCell: some View {
         HStack(spacing: 20) {
             ZStack {
-                Image(systemName: isCompleted ? "checkmark" : "circle.fill")
+                Image(systemName: isCompleted ? "checkmark" : "circle.inset.filled")
                     .aspectRatio(contentMode: .fill)
                     .foregroundColor(isCompleted ? .secondary : .accentColor)
-                    .scaleEffect(isCompleted ? 1.0 : 1.5)
+                    .scaleEffect(isCompleted ? 1.0 : 2)
                     .animation(.spring(), value: isCompleted)
                     .onTapGesture {
                         isCompletedToggle()

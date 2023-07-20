@@ -18,6 +18,7 @@ struct CoreView: View {
             if coreVM.allTasks.isEmpty {
                 noTasksText
             } else {
+                taskCategorizedSection
                 taskListSection
             }
         }
@@ -42,7 +43,7 @@ struct CoreView: View {
                             .font(.headline)
                     }
                     
-                    // taskFormView nav
+                    // TaskFormView nav
                     NavigationLink {
                         TaskFormView(task: nil)
                             .environmentObject(coreVM)
@@ -55,6 +56,7 @@ struct CoreView: View {
         }
         .navigationDestination(for: TaskModel.self) { task in
             TaskFormView(task: task)
+                .environmentObject(coreVM)
         }
     }
 }
@@ -81,16 +83,46 @@ extension CoreView {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
+    private var taskCategorizedSection: some View {
+        Section {
+            ScrollView {
+                LazyHStack {
+                    
+                }
+            }
+        } header: {
+            HStack {
+                Text("Categorized")
+                Spacer()
+                Image(systemName: "chevron.up")
+            }
+        }
+    }
+    
     private var taskListSection: some View {
         List {
             Section {
                 ForEach(coreVM.allTasks) { task in
-                    TaskRowView(task: task)
-                        .environmentObject(coreVM)
+                    NavigationLink(value: task) {
+                        TaskRowView(task: task)
+                            .environmentObject(coreVM)
+                    }
                 }
             } header: {
-                Text("Tasks")
+                HStack {
+                    Text("Tasks")
+                    Spacer()
+                    Image(systemName: "chevron.up")
+                }
             }
+        }
+    }
+}
+
+struct BehindTaskRowView: View {
+    var body: some View {
+        HStack {
+            
         }
     }
 }

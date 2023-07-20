@@ -82,6 +82,7 @@ struct TaskFormView_Previews: PreviewProvider {
     }
 }
 
+// MARK: @FocusState methods
 private extension TaskFormView {
     @frozen enum TextFieldInFocus: Int, Hashable, CaseIterable {
         case title
@@ -117,6 +118,7 @@ private extension TaskFormView {
     }
 }
 
+// MARK: Extraced views
 extension TaskFormView {
     private var datePickerSection: some View {
         VStack {
@@ -150,6 +152,9 @@ extension TaskFormView {
             }
         }
         .padding()
+        .onTapGesture {
+            textFieldFocused = nil
+        }
     }
     
     private var categoryPickerSection: some View {
@@ -208,6 +213,9 @@ extension TaskFormView {
             }
         }
         .padding()
+        .onTapGesture {
+            textFieldFocused = nil
+        }
     }
     
     private var controlButtons: some View {
@@ -242,11 +250,16 @@ extension TaskFormView {
         .frame(maxWidth: .infinity)
         .shadow(radius: 10, y: 20)
     }
-    
+}
+
+// MARK: Methods
+extension TaskFormView {
     private func allClear() {
         withAnimation(.easeInOut) {
             taskFormVM.allClear()
         }
+        
+        textFieldFocused = nil
     }
     
     private func saveTask() {

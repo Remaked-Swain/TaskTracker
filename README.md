@@ -19,5 +19,6 @@
 
 
 #### To-Do
-    1. CoreDataManager 기능 오류 해결
-    2. TaskFormView 내 textField 조작 중 Software keyboard 액션 조정
+    1. CoreDataManager 기능 구현
+    2. Swiping interaction on list 구현
+    3. TaskFormView 의 DatePicker 의 조작에 대한 무반응 문제 수정
