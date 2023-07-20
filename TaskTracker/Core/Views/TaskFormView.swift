@@ -187,15 +187,16 @@ extension TaskFormView {
         }
     }
     
-    private func addNewCategory() {
-        let newCategory = taskFormVM.categoryIntegrityCheck()
-//        coreVM.createCategory(category: newCategory)
-    }
-    
     private func saveTask() {
-        let newTask = taskFormVM.taskIntegrityCheck()
-//        coreVM.saveTask(task: tmpTask)
+        let tmpTask = taskFormVM.taskIntegrityCheck()
+        coreVM.saveTask(task: tmpTask)
         
         dismiss()
+    }
+    
+    private func addNewCategory() {
+        let tmpCategory = taskFormVM.categoryIntegrityCheck()
+        coreVM.saveCategory(category: tmpCategory)
+        taskFormVM.textFieldCategory = ""
     }
 }
