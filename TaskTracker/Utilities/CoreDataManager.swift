@@ -1,149 +1,124 @@
-//
-//  DataService.swift
-//  TaskTracker
-//
-//  Created by Swain Yun on 2023/07/14.
-//
-
 import Foundation
 import CoreData
 
 class CoreDataManager {
     static let shared = CoreDataManager()
     
-    private let persistentContainer: NSPersistentContainer
+    private init() { }
     
-    var viewContext: NSManagedObjectContext {
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "TaskTracker")
+        container.loadPersistentStores(completionHandler: { (_, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    private var managedContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
     
-    private init() {
-        self.persistentContainer = NSPersistentContainer(name: "TaskTracker")
-        persistentContainer.loadPersistentStores { _, error in
-            if let error = error as NSError? {
-                fatalError("persistentStore error: \(error)")
-            }
-        }
-    }
-    
-    func saveContext() {
-        if viewContext.hasChanges {
+    private func saveContext() {
+        if managedContext.hasChanges {
             do {
-                try viewContext.save()
+                try managedContext.save()
             } catch {
-                let error = error as NSError
-                fatalError("saveContext error: \(error)")
+                print("Error saving context: \(error)")
             }
         }
     }
     
-    // Methods to manage Tasks
+    // Task CRUD Operations
     func saveTask(_ task: TaskModel) {
-        viewContext.perform { [weak self] in
-            guard let context = self?.viewContext else { return }
-            
-            let newTask = TaskEntity(context: context)
-            newTask.id = task.id
-            newTask.title = task.title
-            newTask.taskDescription = task.taskDescription
-            newTask.deadline = task.deadline
-            newTask.isCompleted = task.isCompleted
-            newTask.category = task.category
-            
-            self?.saveContext()
+        let taskEntity = TaskEntity(context: managedContext)
+        taskEntity.id = task.id
+        taskEntity.title = task.title
+        taskEntity.taskDescription = task.taskDescription
+        taskEntity.deadline = task.deadline
+        taskEntity.isCompleted = task.isCompleted
+        taskEntity.category = task.category
+        
+        saveContext()
+    }
+    
+    func fetchTasks(completion: @escaping ([TaskEntity]) -> Void) {
+        let fetchRequest: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+        do {
+            let tasks = try managedContext.fetch(fetchRequest)
+            completion(tasks)
+        } catch {
+            print("Error fetching tasks: \(error)")
+            completion([])
         }
     }
     
     func updateTask(_ task: TaskModel) {
-        viewContext.perform { [weak self] in
-            let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
-            request.predicate = NSPredicate(format: "id == %@", task.id as CVarArg)
-            
-            do {
-                if let result = try self?.viewContext.fetch(request).first {
-                    result.title = task.title
-                    result.taskDescription = task.taskDescription
-                    result.deadline = task.deadline
-                    result.isCompleted = task.isCompleted
-                    result.category = task.category
-                    
-                    self?.saveContext()
-                }
-            } catch let error {
-                print("Failed to update task: \(error)")
+        let fetchRequest: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", task.id as CVarArg)
+        
+        do {
+            let tasks = try managedContext.fetch(fetchRequest)
+            if let existingTask = tasks.first {
+                existingTask.title = task.title
+                existingTask.taskDescription = task.taskDescription
+                existingTask.deadline = task.deadline
+                existingTask.isCompleted = task.isCompleted
+                existingTask.category = task.category
+                saveContext()
             }
+        } catch {
+            print("Error updating task: \(error)")
         }
     }
     
     func deleteTask(_ task: TaskModel) {
-        viewContext.perform { [weak self] in
-            let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
-            request.predicate = NSPredicate(format: "id == %@", task.id as CVarArg)
-            
-            do {
-                if let result = try self?.viewContext.fetch(request).first {
-                    self?.viewContext.delete(result)
-                    self?.saveContext()
-                }
-            } catch let error {
-                print("Failed to delete task: \(error)")
+        let fetchRequest: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", task.id as CVarArg)
+        
+        do {
+            let tasks = try managedContext.fetch(fetchRequest)
+            if let taskToDelete = tasks.first {
+                managedContext.delete(taskToDelete)
+                saveContext()
             }
+        } catch {
+            print("Error deleting task: \(error)")
         }
     }
     
-    func fetchTasks(completion: @escaping ([TaskEntity]) -> Void) {
-        viewContext.perform { [weak self] in
-            let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
-            
-            do {
-                let taskEntities = try self?.viewContext.fetch(request) ?? []
-                completion(taskEntities)
-            } catch let error {
-                print("Failed to fetch tasks: \(error)")
-                completion([])
-            }
-        }
-    }
-    
-    // Methods to manage Categories
+    // Category CRUD Operations
     func saveCategory(_ category: String) {
-        viewContext.perform { [weak self] in
-            guard let context = self?.viewContext else { return }
-            
-            let newCategory = CategoryEntity(context: context)
-            newCategory.name = category
-            
-            self?.saveContext()
+        let categoryEntity = CategoryEntity(context: managedContext)
+        categoryEntity.name = category
+        
+        saveContext()
+    }
+    
+    func fetchCategories(completion: @escaping ([CategoryEntity]) -> Void) {
+        let fetchRequest: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
+        do {
+            let categories = try managedContext.fetch(fetchRequest)
+            completion(categories)
+        } catch {
+            print("Error fetching categories: \(error)")
+            completion([])
         }
     }
     
     func deleteCategory(_ category: String) {
-        viewContext.perform { [weak self] in
-            let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-            request.predicate = NSPredicate(format: "name == %@", category)
-            
-            do {
-                if let result = try self?.viewContext.fetch(request).first {
-                    self?.viewContext.delete(result)
-                    self?.saveContext()
-                }
-            } catch let error {
-                print("Failed to delete category: \(error)")
+        let fetchRequest: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", category)
+        
+        do {
+            let categories = try managedContext.fetch(fetchRequest)
+            if let categoryToDelete = categories.first {
+                managedContext.delete(categoryToDelete)
+                saveContext()
             }
-        }
-    }
-    
-    func fetchCategories(completion: @escaping ([CategoryEntity]) -> Void) {
-        viewContext.perform { [weak self] in
-            let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-            
-            do {
-                let categoryEntities = try self?.viewContext.fetch(request) ?? []
-                completion(categoryEntities)
-            } catch let error {
-                print("Failed to fetch categories: \(error)")
-                completion([])
-            }
+        } catch {
+            print("Error deleting category: \(error)")
         }
     }
 }
