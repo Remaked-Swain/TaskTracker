@@ -88,5 +88,5 @@ struct DeveloperPreview {
         )
     ]
     
-    let categories = ["없음", "업무", "개인", "독서", "취미", "재무", "경력", "여행"]
+    let categories = ["분류 없음", "업무", "개인", "독서", "취미", "재무", "경력", "여행"]
 }

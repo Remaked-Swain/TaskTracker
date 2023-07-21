@@ -13,7 +13,7 @@ class TaskFormViewModel: ObservableObject {
     @Published var datePickerIsOn: Bool = false
     @Published var datePickerSelection: Date = Date()
     @Published var categoryPickerIsOn: Bool = false
-    @Published var categoryPickerSelection: String = "없음"
+    @Published var categoryPickerSelection: String = "분류 없음"
     @Published var textFieldCategory: String = ""
     
     private var task: (id: UUID?, title: String?, taskDescription: String?, deadline: Date?, isCompleted: Bool, category: String?) = (nil, nil, nil, nil, false, nil)
@@ -44,8 +44,8 @@ class TaskFormViewModel: ObservableObject {
         textFieldTaskDescription = task.taskDescription
         datePickerIsOn = task.deadline == nil ? false : true
         datePickerSelection = task.deadline ?? Date()
-        categoryPickerIsOn = task.category == nil || task.category == "없음" ? false : true
-        categoryPickerSelection = task.category ?? "없음"
+        categoryPickerIsOn = task.category == nil || task.category == "분류 없음" ? false : true
+        categoryPickerSelection = task.category ?? "분류 없음"
     }
 }
 
@@ -65,7 +65,7 @@ extension TaskFormViewModel {
         datePickerSelection = Date()
         datePickerIsOn = false
         categoryPickerIsOn = false
-        categoryPickerSelection = "없음"
+        categoryPickerSelection = "분류 없음"
     }
     
     func taskIntegrityCheck() -> TaskModel {

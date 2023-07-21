@@ -20,7 +20,8 @@ struct CoreView: View {
             } else {
                 List {
 //                    taskCategorizedSection
-                    taskListSection
+//                    taskListSection
+                    categorizedSections
                 }
             }
         }
@@ -76,34 +77,60 @@ extension CoreView {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    private var taskCategorizedSection: some View {
-        Section {
-            ScrollView {
-                LazyHStack {
-                    
-                }
-            }
-        } header: {
-            HStack {
-                Text("Categorized")
-                Spacer()
-                Image(systemName: "chevron.up")
-            }
-        }
-    }
+//    private var taskCategorizedSection: some View {
+//        Section {
+//            ScrollView {
+//                LazyHStack {
+//
+//                }
+//            }
+//        } header: {
+//            HStack {
+//                Text("Categorized")
+//                Spacer()
+//                Image(systemName: "chevron.up")
+//            }
+//        }
+//    }
+//
+//    private var taskListSection: some View {
+//        Section {
+//            if coreVM.taskSectionIsExpanded {
+//                ForEach(coreVM.allTasks) { task in
+//                    NavigationLink(value: task) {
+//                        TaskRowView(task: task)
+//                            .environmentObject(coreVM)
+//                    }
+//                }
+//            }
+//        } header: {
+//            FoldableSectionHeader(isExpanded: $coreVM.taskSectionIsExpanded, text: "Tasks")
+//        }
+//    }
     
-    private var taskListSection: some View {
-        Section {
-            if coreVM.taskSectionIsExpanded {
-                ForEach(coreVM.allTasks) { task in
+    private var categorizedSections: some View {
+        ForEach(coreVM.allCategories, id: \.self) { category in
+            Section {
+                ForEach(coreVM.allTasks.filter({$0.category == category})) { task in
                     NavigationLink(value: task) {
                         TaskRowView(task: task)
                             .environmentObject(coreVM)
                     }
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            withAnimation(.linear) {
+                                coreVM.deleteTask(task: task)
+                            }
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+
+
+                    }
                 }
+            } header: {
+                FoldableSectionHeader(isExpanded: $coreVM.taskSectionIsExpanded, text: category)
             }
-        } header: {
-            FoldableSectionHeader(isExpanded: $coreVM.taskSectionIsExpanded, text: "Tasks")
         }
     }
 }

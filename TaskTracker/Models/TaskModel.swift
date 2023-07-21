@@ -21,6 +21,6 @@ struct TaskModel: Identifiable, Hashable {
         self.taskDescription = taskDescription ?? ""
         self.deadline = deadline
         self.isCompleted = isCompleted
-        self.category = category ?? "없음"
+        self.category = category ?? "분류 없음"
     }
 }

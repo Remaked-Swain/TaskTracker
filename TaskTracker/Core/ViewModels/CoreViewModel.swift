@@ -10,7 +10,7 @@ import Combine
 
 class CoreViewModel: ObservableObject {
     @Published var allTasks: [TaskModel] = DeveloperPreview.instance.tasks
-    @Published var allCategories: [String] = ["없음"]
+    @Published var allCategories: [String] = DeveloperPreview.instance.categories
     
     @Published var searchText: String = ""
     @Published var searchBarIsOn: Bool = false
@@ -27,12 +27,11 @@ class CoreViewModel: ObservableObject {
 // MARK: CRUD methods for task
 extension CoreViewModel {
     func saveTask(task: TaskModel) {
-        guard let index = allTasks.firstIndex(where: {$0.id == task.id}) else {
-            allTasks.append(task)
-            return
-        }
-        
-        allTasks[index] = task
+        coreDataManager.updateTask(task: task)
+    }
+    
+    func deleteTask(task: TaskModel) {
+        coreDataManager.deleteTask(task: task)
     }
 }
 
