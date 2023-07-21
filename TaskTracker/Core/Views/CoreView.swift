@@ -18,8 +18,10 @@ struct CoreView: View {
             if coreVM.allTasks.isEmpty {
                 noTasksText
             } else {
-                taskCategorizedSection
-                taskListSection
+                List {
+//                    taskCategorizedSection
+                    taskListSection
+                }
             }
         }
         .navigationTitle("Task Tracker")
@@ -35,15 +37,6 @@ struct CoreView: View {
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
-                    // searchbar
-                    Button {
-                        // search
-                    } label: {
-                        Image(systemName: "magnifyingglass")
-                            .font(.headline)
-                    }
-                    
-                    // TaskFormView nav
                     NavigationLink {
                         TaskFormView(task: nil)
                             .environmentObject(coreVM)
@@ -100,29 +93,17 @@ extension CoreView {
     }
     
     private var taskListSection: some View {
-        List {
-            Section {
+        Section {
+            if coreVM.taskSectionIsExpanded {
                 ForEach(coreVM.allTasks) { task in
                     NavigationLink(value: task) {
                         TaskRowView(task: task)
                             .environmentObject(coreVM)
                     }
                 }
-            } header: {
-                HStack {
-                    Text("Tasks")
-                    Spacer()
-                    Image(systemName: "chevron.up")
-                }
             }
-        }
-    }
-}
-
-struct BehindTaskRowView: View {
-    var body: some View {
-        HStack {
-            
+        } header: {
+            FoldableSectionHeader(isExpanded: $coreVM.taskSectionIsExpanded, text: "Tasks")
         }
     }
 }

@@ -20,10 +20,10 @@
 		0488BA332A63EDB400484208 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA322A63EDB400484208 /* TaskFormView.swift */; };
 		0488BA362A63F29300484208 /* PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA352A63F29300484208 /* PreferenceKeys.swift */; };
 		0488BA382A64170500484208 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA372A64170500484208 /* View.swift */; };
-		0488BA3A2A64178F00484208 /* SecondarySystemBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA392A64178F00484208 /* SecondarySystemBackgroundModifier.swift */; };
-		0488BA3C2A64CEE200484208 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA3B2A64CEE200484208 /* TextFieldModifier.swift */; };
 		0488BA4C2A6916B900484208 /* TaskTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA4A2A6916B900484208 /* TaskTracker.xcdatamodeld */; };
 		0488BA4E2A691EBC00484208 /* TaskFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA4D2A691EBC00484208 /* TaskFormViewModel.swift */; };
+		0488BA562A6AB4EA00484208 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA552A6AB4EA00484208 /* SearchBarView.swift */; };
+		0488BA582A6AC03400484208 /* FoldableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA572A6AC03400484208 /* FoldableSectionHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,10 +42,10 @@
 		0488BA322A63EDB400484208 /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
 		0488BA352A63F29300484208 /* PreferenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceKeys.swift; sourceTree = "<group>"; };
 		0488BA372A64170500484208 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		0488BA392A64178F00484208 /* SecondarySystemBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondarySystemBackgroundModifier.swift; sourceTree = "<group>"; };
-		0488BA3B2A64CEE200484208 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
 		0488BA4B2A6916B900484208 /* TaskEntity.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaskEntity.xcdatamodel; sourceTree = "<group>"; };
 		0488BA4D2A691EBC00484208 /* TaskFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewModel.swift; sourceTree = "<group>"; };
+		0488BA552A6AB4EA00484208 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		0488BA572A6AC03400484208 /* FoldableSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldableSectionHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,8 +158,8 @@
 		0459E3742A61B002000B0434 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				0488BA392A64178F00484208 /* SecondarySystemBackgroundModifier.swift */,
-				0488BA3B2A64CEE200484208 /* TextFieldModifier.swift */,
+				0488BA552A6AB4EA00484208 /* SearchBarView.swift */,
+				0488BA572A6AC03400484208 /* FoldableSectionHeader.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -254,16 +254,16 @@
 				0459E34F2A6183EB000B0434 /* TaskTrackerApp.swift in Sources */,
 				0488BA332A63EDB400484208 /* TaskFormView.swift in Sources */,
 				0488BA2C2A62557B00484208 /* TaskRowView.swift in Sources */,
-				0488BA3C2A64CEE200484208 /* TextFieldModifier.swift in Sources */,
 				0459E3642A618941000B0434 /* PreviewProvider.swift in Sources */,
 				0459E3672A6189CB000B0434 /* TaskModel.swift in Sources */,
 				0488BA4E2A691EBC00484208 /* TaskFormViewModel.swift in Sources */,
+				0488BA582A6AC03400484208 /* FoldableSectionHeader.swift in Sources */,
 				0459E36B2A618E50000B0434 /* CoreDataManager.swift in Sources */,
 				0459E3692A618DBA000B0434 /* CalendarService.swift in Sources */,
 				0488BA382A64170500484208 /* View.swift in Sources */,
+				0488BA562A6AB4EA00484208 /* SearchBarView.swift in Sources */,
 				0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */,
 				0459E3762A61B246000B0434 /* CoreView.swift in Sources */,
-				0488BA3A2A64178F00484208 /* SecondarySystemBackgroundModifier.swift in Sources */,
 				0488BA4C2A6916B900484208 /* TaskTracker.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

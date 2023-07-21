@@ -7,24 +7,39 @@ class CoreDataManager {
     @Published var taskEntities: [TaskEntity] = []
     @Published var categoryEntities: [CategoryEntity] = []
     
-    let container: NSPersistentContainer
+    private let container: NSPersistentContainer
+    private let containerName: String = "TaskTracker"
     
     private init() {
-        container = NSPersistentContainer(name: "TaskTracker")
-        container.loadPersistentStores { description, error in
+        container = NSPersistentContainer(name: containerName)
+        container.loadPersistentStores { _, error in
             if let error = error {
                 print("Failed loading CoreData. \(error)")
-            } else {
-                print("Successfully loaded CoreData.")
             }
         }
         
         fetchTasks()
         fetchCategories()
     }
+    
+    // Public methods
+    func updateTask(task: TaskModel)  {
+        // 같은 id를 가진 taskEntity 가 있으면 업데이트, 아니면 새로이 생성
+        guard let taskEntity = taskEntities.first(where: {$0.id == task.id}) else {
+            create(task: task)
+            return
+        }
+        
+        update(taskEntity: taskEntity, task: task)
+    }
+    
+    func deleteTask(task: TaskModel) {
+        guard let taskEntity = taskEntities.first(where: {$0.id == task.id}) else { return }
+        delete(taskEntity: taskEntity)
+    }
 }
 
-// MARK: CRUD methods for task
+// MARK: Private CRUD methods for task
 extension CoreDataManager {
     private func fetchTasks() {
         let request = NSFetchRequest<TaskEntity>(entityName: "TaskEntity")
@@ -45,7 +60,7 @@ extension CoreDataManager {
         }
     }
     
-    func createTask(task: TaskModel) {
+    private func create(task: TaskModel) {
         let newTask = TaskEntity(context: container.viewContext)
         newTask.id = task.id
         newTask.title = task.title
@@ -53,6 +68,21 @@ extension CoreDataManager {
         newTask.deadline = task.deadline
         newTask.isCompleted = task.isCompleted
         newTask.category = task.category
+        saveTasks()
+    }
+    
+    private func update(taskEntity: TaskEntity, task: TaskModel) {
+        taskEntity.id = task.id
+        taskEntity.title = task.title
+        taskEntity.taskDescription = task.taskDescription
+        taskEntity.deadline = task.deadline
+        taskEntity.isCompleted = task.isCompleted
+        taskEntity.category = task.category
+        saveTasks()
+    }
+    
+    private func delete(taskEntity: TaskEntity) {
+        container.viewContext.delete(taskEntity)
         saveTasks()
     }
 }
@@ -78,7 +108,7 @@ extension CoreDataManager {
         }
     }
     
-    func createCategory(category: String) {
+    private func createCategory(category: String) {
         let newCategory = CategoryEntity(context: container.viewContext)
         newCategory.name = category
         saveCategories()

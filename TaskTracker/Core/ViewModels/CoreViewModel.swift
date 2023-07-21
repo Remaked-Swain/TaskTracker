@@ -10,7 +10,12 @@ import Combine
 
 class CoreViewModel: ObservableObject {
     @Published var allTasks: [TaskModel] = DeveloperPreview.instance.tasks
-    @Published var allCategories: [String] = DeveloperPreview.instance.categories
+    @Published var allCategories: [String] = ["없음"]
+    
+    @Published var searchText: String = ""
+    @Published var searchBarIsOn: Bool = false
+    
+    @Published var taskSectionIsExpanded: Bool = true
     
     private let coreDataManager: CoreDataManager
     
@@ -22,7 +27,6 @@ class CoreViewModel: ObservableObject {
 // MARK: CRUD methods for task
 extension CoreViewModel {
     func saveTask(task: TaskModel) {
-        // allTasks 에 같은 id를 가진 task 가 있으면 대입업데이트, 아니면 새로이 추가
         guard let index = allTasks.firstIndex(where: {$0.id == task.id}) else {
             allTasks.append(task)
             return
