@@ -10,7 +10,7 @@ import Combine
 
 class CoreViewModel: ObservableObject {
     @Published var allTasks: [TaskModel] = DeveloperPreview.instance.tasks
-    @Published var allCategories: [String] = ["없음"]
+    @Published var allCategories: [String] = DeveloperPreview.instance.categories
     
     private let coreDataManager: CoreDataManager
     

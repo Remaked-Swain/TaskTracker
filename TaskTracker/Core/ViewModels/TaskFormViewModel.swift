@@ -8,25 +8,25 @@
 import Foundation
 
 class TaskFormViewModel: ObservableObject {
+    @Published var textFieldTitle: String = ""
+    @Published var textFieldTaskDescription: String = ""
     @Published var datePickerIsOn: Bool = false
     @Published var datePickerSelection: Date = Date()
     @Published var categoryPickerIsOn: Bool = false
     @Published var categoryPickerSelection: String = "없음"
-    @Published var textFieldTitle: String = ""
-    @Published var textFieldTaskDescription: String = ""
     @Published var textFieldCategory: String = ""
     
     private var task: (id: UUID?, title: String?, taskDescription: String?, deadline: Date?, isCompleted: Bool, category: String?) = (nil, nil, nil, nil, false, nil)
     
     // computed properties
-    var onEditing: Bool {
+    private var _onEditing: Bool {
         textFieldTitle.isEmpty == false || textFieldTaskDescription.isEmpty == false || datePickerIsOn || categoryPickerIsOn
     }
+    var onEditing: Bool { get { self._onEditing } }
     
     init(task: TaskModel?) {
         // 기존의 task 를 편집할 때는 task 가 전달되고, 새로운 task 를 만들 때는 nil 이 전달되어 이니셜라이징
         guard let task = task else { return }
-        
         readyToEditTask(task)
     }
     
@@ -42,9 +42,9 @@ class TaskFormViewModel: ObservableObject {
         
         textFieldTitle = task.title
         textFieldTaskDescription = task.taskDescription
-        datePickerIsOn = true
+        datePickerIsOn = task.deadline == nil ? false : true
         datePickerSelection = task.deadline ?? Date()
-        categoryPickerIsOn = true
+        categoryPickerIsOn = task.category == nil || task.category == "없음" ? false : true
         categoryPickerSelection = task.category ?? "없음"
     }
 }

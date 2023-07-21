@@ -12,7 +12,6 @@ struct TaskFormView: View {
     @EnvironmentObject private var coreVM: CoreViewModel
     
     @StateObject private var taskFormVM: TaskFormViewModel
-    @FocusState private var textFieldFocused: TextFieldInFocus?
     
     init(task: TaskModel?) {
         _taskFormVM = StateObject(wrappedValue: TaskFormViewModel(task: task))
@@ -23,13 +22,11 @@ struct TaskFormView: View {
             VStack {
                 ScrollView {
                     TextField("제목", text: $taskFormVM.textFieldTitle)
-                        .focused($textFieldFocused, equals: .title)
                         .autoCorrectionDisabledTextField()
                         .padding()
                         .secondarySystemBackgroundModifier()
                     
                     TextField("할 일에 대한 설명", text: $taskFormVM.textFieldTaskDescription)
-                        .focused($textFieldFocused, equals: .taskDescription)
                         .autoCorrectionDisabledTextField()
                         .padding()
                         .secondarySystemBackgroundModifier()
@@ -46,30 +43,6 @@ struct TaskFormView: View {
         }
         .padding()
         .navigationTitle("할 일 편집")
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button {
-                    previousFocus()
-                } label: {
-                    Image(systemName: "chevron.up")
-                }
-                .disabled(hasReachedFirst)
-                
-                Button {
-                    nextFocus()
-                } label: {
-                    Image(systemName: "chevron.down")
-                }
-                .disabled(hasReachedLast)
-            }
-        }
-        .onAppear {
-            textFieldFocused = .title
-        }
-        .onTapGesture {
-            textFieldFocused = nil
-        }
     }
 }
 
@@ -79,42 +52,6 @@ struct TaskFormView_Previews: PreviewProvider {
             TaskFormView(task: dev.tasks.first!)
                 .environmentObject(CoreViewModel(coreDataManager: dev.coreDataManager))
         }
-    }
-}
-
-// MARK: @FocusState methods
-private extension TaskFormView {
-    @frozen enum TextFieldInFocus: Int, Hashable, CaseIterable {
-        case title
-        case taskDescription
-    }
-    
-    var hasReachedFirst: Bool {
-        self.textFieldFocused == TextFieldInFocus.allCases.first
-    }
-    
-    var hasReachedLast: Bool {
-        self.textFieldFocused == TextFieldInFocus.allCases.last
-    }
-    
-    func nextFocus() {
-        guard
-            let currentFocusStateIndex = textFieldFocused?.rawValue,
-            let lastIndex = TextFieldInFocus.allCases.last?.rawValue
-        else { return }
-        
-        let index = min(currentFocusStateIndex + 1, lastIndex)
-        self.textFieldFocused = TextFieldInFocus(rawValue: index)
-    }
-    
-    func previousFocus() {
-        guard
-            let currentFocusStateIndex = textFieldFocused?.rawValue,
-            let firstIndex = TextFieldInFocus.allCases.first?.rawValue
-        else { return }
-        
-        let index = max(currentFocusStateIndex - 1, firstIndex)
-        self.textFieldFocused = TextFieldInFocus(rawValue: index)
     }
 }
 
@@ -152,9 +89,6 @@ extension TaskFormView {
             }
         }
         .padding()
-        .onTapGesture {
-            textFieldFocused = nil
-        }
     }
     
     private var categoryPickerSection: some View {
@@ -213,9 +147,6 @@ extension TaskFormView {
             }
         }
         .padding()
-        .onTapGesture {
-            textFieldFocused = nil
-        }
     }
     
     private var controlButtons: some View {
@@ -258,8 +189,6 @@ extension TaskFormView {
         withAnimation(.easeInOut) {
             taskFormVM.allClear()
         }
-        
-        textFieldFocused = nil
     }
     
     private func saveTask() {
