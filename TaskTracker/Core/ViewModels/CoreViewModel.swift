@@ -9,13 +9,11 @@ import Foundation
 import Combine
 
 class CoreViewModel: ObservableObject {
-    @Published var allTasks: [TaskModel] = DeveloperPreview.instance.tasks
-    @Published var allCategories: [String] = DeveloperPreview.instance.categories
+    @Published var allTasks: [TaskModel] = []
+    @Published var allCategories: [String] = []
     
     @Published var searchText: String = ""
     @Published var searchBarIsOn: Bool = false
-    
-    @Published var taskSectionIsExpanded: Bool = true
     
     private let coreDataManager: CoreDataManager
     
@@ -38,8 +36,10 @@ extension CoreViewModel {
 // MARK: CRUD methods for category
 extension CoreViewModel {
     func saveCategory(category: String) {
-        // 이미 존재하는 카테고리인 경우 무시, 아니면 새로이 추가
-        guard allCategories.contains(category) == false else { return }
-        allCategories.append(category)
+        coreDataManager.addCategory(category: category)
+    }
+    
+    func removeCategory(category: String) {
+        coreDataManager.removeCategory(category: category)
     }
 }

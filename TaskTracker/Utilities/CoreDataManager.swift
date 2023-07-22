@@ -20,6 +20,10 @@ class CoreDataManager {
         
         fetchTasks()
         fetchCategories()
+        
+        if categoryEntities.firstIndex(where: {$0.name == "분류 없음"}) == nil {
+            addCategory(category: "분류 없음")
+        }
     }
     
     // Public methods
@@ -36,6 +40,19 @@ class CoreDataManager {
     func deleteTask(task: TaskModel) {
         guard let taskEntity = taskEntities.first(where: {$0.id == task.id}) else { return }
         delete(taskEntity: taskEntity)
+    }
+    
+    func addCategory(category: String) {
+        // 이미 존재하는 카테고리인 경우 무시, 아니면 새로이 추가
+        guard categoryEntities.contains(where: {$0.name == category}) else {
+            add(category: category)
+            return
+        }
+    }
+    
+    func removeCategory(category: String) {
+        guard let categoryEntity = categoryEntities.first(where: {$0.name == category}) else { return }
+        remove(categoryEntity: categoryEntity)
     }
 }
 
@@ -108,9 +125,16 @@ extension CoreDataManager {
         }
     }
     
-    private func createCategory(category: String) {
+    private func add(category: String) {
         let newCategory = CategoryEntity(context: container.viewContext)
         newCategory.name = category
+        saveCategories()
+    }
+    
+    private func remove(categoryEntity: CategoryEntity) {
+        // 기본값인 "분류 없음" 카테고리는 항상 남아있게
+        guard categoryEntity.name != "분류 없음" else { return }
+        container.viewContext.delete(categoryEntity)
         saveCategories()
     }
 }
