@@ -10,7 +10,7 @@ import Combine
 
 class CoreViewModel: ObservableObject {
     @Published var allTasks: [TaskModel] = []
-    @Published var allCategories: [String] = []
+    @Published var allCategories: [String] = ["분류 없음"]
     private var cancellables = Set<AnyCancellable>()
     
     @Published var searchText: String = ""
@@ -55,7 +55,7 @@ class CoreViewModel: ObservableObject {
                 }
             }
             .sink { [weak self] returnedCategories in
-                self?.allCategories = returnedCategories
+                self?.allCategories = returnedCategories.sorted(by: {$0 < $1})
             }
             .store(in: &cancellables)
     }

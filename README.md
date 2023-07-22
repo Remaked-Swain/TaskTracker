@@ -21,5 +21,5 @@
 #### To-Do
     1. CRUD Methods 에 따라서 적절한 .swipeActions 작성하기
     2. MenuView 와 적절한 UI 구현
-    3. CoreViewModel - CoreDataManager async // on test
+    3. CoreViewModel - CoreDataManager async / 저장안되고있음
     4. Categorized sections 타입추론 에러 해결

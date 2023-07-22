@@ -18,9 +18,7 @@ struct CoreView: View {
             if coreVM.allTasks.isEmpty {
                 noTasksText
             } else {
-                List {
-                    categorizedSections
-                }
+                categorizedList
             }
         }
         .navigationTitle("Task Tracker")
@@ -107,10 +105,10 @@ extension CoreView {
 //        }
 //    }
     
-    private var categorizedSections: some View {
-        ForEach(coreVM.allCategories, id: \.self) { category in
+    private var categorizedList: some View {
+        List {
             Section {
-                ForEach(coreVM.allTasks.filter({$0.category == category})) { task in
+                ForEach(coreVM.allTasks) { task in
                     NavigationLink(value: task) {
                         TaskRowView(task: task)
                             .environmentObject(coreVM)
@@ -122,12 +120,12 @@ extension CoreView {
                             }
                         } label: {
                             Image(systemName: "trash")
+                                .tint(Color.accentColor)
                         }
-                        .tint(Color.accentColor)
                     }
                 }
             } header: {
-                FoldableSectionHeader(isExpanded: $coreVM.taskSectionIsExpanded, text: category)
+                Text("Tasks")
             }
         }
     }
