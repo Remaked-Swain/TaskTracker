@@ -4,8 +4,8 @@ import CoreData
 class CoreDataManager {
     static let shared = CoreDataManager()
     
-    private var taskEntities: [TaskEntity] = []
-    private var categoryEntities: [CategoryEntity] = []
+    @Published var taskEntities: [TaskEntity] = []
+    @Published var categoryEntities: [CategoryEntity] = []
     
     private let container: NSPersistentContainer
     private let containerName: String = "TaskTracker"

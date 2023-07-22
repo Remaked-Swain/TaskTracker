@@ -11,6 +11,7 @@ import Combine
 class CoreViewModel: ObservableObject {
     @Published var allTasks: [TaskModel] = []
     @Published var allCategories: [String] = []
+    private var cancellables = Set<AnyCancellable>()
     
     @Published var searchText: String = ""
     @Published var searchBarIsOn: Bool = false
@@ -19,6 +20,44 @@ class CoreViewModel: ObservableObject {
     
     init(coreDataManager: CoreDataManager) {
         self.coreDataManager = coreDataManager
+        
+        subscribe()
+    }
+    
+    func subscribe() {
+        // taskEntities 의 변화를 감지하여 allTasks 를 업데이트
+        $allTasks
+            .combineLatest(coreDataManager.$taskEntities)
+            .map { (taskModel, taskEntities) -> [TaskModel] in
+                taskModel.compactMap { task in
+                    guard let taskEntity = taskEntities.first(where: {$0.id == task.id}) else { return nil }
+                    return TaskModel(
+                        id: taskEntity.id,
+                        title: taskEntity.title,
+                        taskDescription: taskEntity.taskDescription,
+                        deadline: taskEntity.deadline,
+                        isCompleted: taskEntity.isCompleted,
+                        category: taskEntity.category
+                    )
+                }
+            }
+            .sink { [weak self] returnedTasks in
+                self?.allTasks = returnedTasks
+            }
+            .store(in: &cancellables)
+        
+        $allCategories
+            .combineLatest(coreDataManager.$categoryEntities)
+            .map { (category, categoryEntities) -> [String] in
+                category.compactMap { category in
+                    guard let categoryEntity = categoryEntities.first(where: {$0.name == category}) else { return nil }
+                    return categoryEntity.name
+                }
+            }
+            .sink { [weak self] returnedCategories in
+                self?.allCategories = returnedCategories
+            }
+            .store(in: &cancellables)
     }
 }
 

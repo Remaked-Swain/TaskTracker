@@ -19,6 +19,7 @@
 
 
 #### To-Do
-    1. CoreDataManager 와 각 CRUD Methods 연결하기
-    2. CRUD Methods 에 따라서 적절한 .swipeActions 작성하기
-    3. MenuView 와 적절한 UI 구현
+    1. CRUD Methods 에 따라서 적절한 .swipeActions 작성하기
+    2. MenuView 와 적절한 UI 구현
+    3. CoreViewModel - CoreDataManager async // on test
+    4. Categorized sections 타입추론 에러 해결

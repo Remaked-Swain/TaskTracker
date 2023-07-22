@@ -19,8 +19,6 @@ struct CoreView: View {
                 noTasksText
             } else {
                 List {
-//                    taskCategorizedSection
-//                    taskListSection
                     categorizedSections
                 }
             }
@@ -77,6 +75,7 @@ extension CoreView {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
+//    Another sections:
 //    private var taskCategorizedSection: some View {
 //        Section {
 //            ScrollView {
@@ -124,8 +123,7 @@ extension CoreView {
                         } label: {
                             Image(systemName: "trash")
                         }
-
-
+                        .tint(Color.accentColor)
                     }
                 }
             } header: {
