@@ -45,6 +45,7 @@ extension TaskRowView {
                     .animation(.spring(), value: isCompleted)
                     .onTapGesture {
                         isCompletedToggle()
+                        updateCompletion()
                     }
             }
             
@@ -78,5 +79,18 @@ extension TaskRowView {
         withAnimation(.spring()) {
             isCompleted.toggle()
         }
+    }
+    
+    private func updateCompletion() {
+        let tmpTask = TaskModel(
+            id: task.id,
+            title: task.title,
+            taskDescription: task.taskDescription,
+            deadline: task.deadline,
+            isCompleted: isCompleted,
+            category: task.category
+        )
+        
+        coreVM.saveTask(task: tmpTask)
     }
 }
