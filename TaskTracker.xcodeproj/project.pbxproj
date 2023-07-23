@@ -15,7 +15,7 @@
 		0459E3692A618DBA000B0434 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3682A618DBA000B0434 /* CalendarService.swift */; };
 		0459E36B2A618E50000B0434 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36A2A618E50000B0434 /* CoreDataManager.swift */; };
 		0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E36F2A619AEE000B0434 /* CoreViewModel.swift */; };
-		0459E3762A61B246000B0434 /* CoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3752A61B246000B0434 /* CoreView.swift */; };
+		0459E3762A61B246000B0434 /* StagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459E3752A61B246000B0434 /* StagingView.swift */; };
 		0488BA2C2A62557B00484208 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA2B2A62557B00484208 /* TaskRowView.swift */; };
 		0488BA332A63EDB400484208 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA322A63EDB400484208 /* TaskFormView.swift */; };
 		0488BA362A63F29300484208 /* PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA352A63F29300484208 /* PreferenceKeys.swift */; };
@@ -25,6 +25,10 @@
 		0488BA562A6AB4EA00484208 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA552A6AB4EA00484208 /* SearchBarView.swift */; };
 		0488BA582A6AC03400484208 /* FoldableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA572A6AC03400484208 /* FoldableSectionHeader.swift */; };
 		0488BA5A2A6D0CC300484208 /* FoldableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA592A6D0CC300484208 /* FoldableSection.swift */; };
+		0488BA5E2A6D370500484208 /* CoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA5D2A6D370500484208 /* CoreView.swift */; };
+		0488BA602A6D3AC300484208 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA5F2A6D3AC300484208 /* MenuButton.swift */; };
+		0488BA622A6D45A700484208 /* StagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA612A6D45A700484208 /* StagingViewModel.swift */; };
+		0488BA642A6D62B300484208 /* StageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA632A6D62B300484208 /* StageModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +42,7 @@
 		0459E36A2A618E50000B0434 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0459E36F2A619AEE000B0434 /* CoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreViewModel.swift; sourceTree = "<group>"; };
 		0459E3712A619CE8000B0434 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		0459E3752A61B246000B0434 /* CoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreView.swift; sourceTree = "<group>"; };
+		0459E3752A61B246000B0434 /* StagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StagingView.swift; sourceTree = "<group>"; };
 		0488BA2B2A62557B00484208 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
 		0488BA322A63EDB400484208 /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
 		0488BA352A63F29300484208 /* PreferenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceKeys.swift; sourceTree = "<group>"; };
@@ -48,6 +52,10 @@
 		0488BA552A6AB4EA00484208 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		0488BA572A6AC03400484208 /* FoldableSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldableSectionHeader.swift; sourceTree = "<group>"; };
 		0488BA592A6D0CC300484208 /* FoldableSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldableSection.swift; sourceTree = "<group>"; };
+		0488BA5D2A6D370500484208 /* CoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreView.swift; sourceTree = "<group>"; };
+		0488BA5F2A6D3AC300484208 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
+		0488BA612A6D45A700484208 /* StagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StagingViewModel.swift; sourceTree = "<group>"; };
+		0488BA632A6D62B300484208 /* StageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +123,8 @@
 		0459E35D2A6187AD000B0434 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0459E3752A61B246000B0434 /* CoreView.swift */,
+				0459E3752A61B246000B0434 /* StagingView.swift */,
+				0488BA5D2A6D370500484208 /* CoreView.swift */,
 				0488BA2B2A62557B00484208 /* TaskRowView.swift */,
 				0488BA322A63EDB400484208 /* TaskFormView.swift */,
 				0488BA592A6D0CC300484208 /* FoldableSection.swift */,
@@ -128,6 +137,7 @@
 			children = (
 				0459E36F2A619AEE000B0434 /* CoreViewModel.swift */,
 				0488BA4D2A691EBC00484208 /* TaskFormViewModel.swift */,
+				0488BA612A6D45A700484208 /* StagingViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -154,6 +164,7 @@
 			children = (
 				0459E3662A6189CB000B0434 /* TaskModel.swift */,
 				0488BA4A2A6916B900484208 /* TaskTracker.xcdatamodeld */,
+				0488BA632A6D62B300484208 /* StageModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,6 +174,7 @@
 			children = (
 				0488BA552A6AB4EA00484208 /* SearchBarView.swift */,
 				0488BA572A6AC03400484208 /* FoldableSectionHeader.swift */,
+				0488BA5F2A6D3AC300484208 /* MenuButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -254,9 +266,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0488BA362A63F29300484208 /* PreferenceKeys.swift in Sources */,
+				0488BA622A6D45A700484208 /* StagingViewModel.swift in Sources */,
 				0459E34F2A6183EB000B0434 /* TaskTrackerApp.swift in Sources */,
 				0488BA332A63EDB400484208 /* TaskFormView.swift in Sources */,
+				0488BA642A6D62B300484208 /* StageModel.swift in Sources */,
 				0488BA2C2A62557B00484208 /* TaskRowView.swift in Sources */,
+				0488BA5E2A6D370500484208 /* CoreView.swift in Sources */,
 				0459E3642A618941000B0434 /* PreviewProvider.swift in Sources */,
 				0459E3672A6189CB000B0434 /* TaskModel.swift in Sources */,
 				0488BA4E2A691EBC00484208 /* TaskFormViewModel.swift in Sources */,
@@ -266,7 +281,8 @@
 				0488BA382A64170500484208 /* View.swift in Sources */,
 				0488BA562A6AB4EA00484208 /* SearchBarView.swift in Sources */,
 				0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */,
-				0459E3762A61B246000B0434 /* CoreView.swift in Sources */,
+				0488BA602A6D3AC300484208 /* MenuButton.swift in Sources */,
+				0459E3762A61B246000B0434 /* StagingView.swift in Sources */,
 				0488BA5A2A6D0CC300484208 /* FoldableSection.swift in Sources */,
 				0488BA4C2A6916B900484208 /* TaskTracker.xcdatamodeld in Sources */,
 			);

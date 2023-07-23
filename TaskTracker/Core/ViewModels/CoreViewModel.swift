@@ -14,6 +14,7 @@ class CoreViewModel: ObservableObject {
     
     @Published var searchText: String = ""
     @Published var searchBarIsOn: Bool = false
+    @Published var menuViewIsOn: Bool = false
     
     private let coreDataManager: CoreDataManager
     

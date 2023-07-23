@@ -1,37 +1,39 @@
 //
-//  CoreView.swift
+//  CoreViewTmp.swift
 //  TaskTracker
 //
-//  Created by Swain Yun on 2023/07/15.
+//  Created by Swain Yun on 2023/07/23.
 //
 
 import SwiftUI
 
 struct CoreView: View {
-    @StateObject private var coreVM = CoreViewModel(coreDataManager: CoreDataManager.shared)
-    
+    @StateObject private var coreVM: CoreViewModel = CoreViewModel(coreDataManager: CoreDataManager.shared)
+
     var body: some View {
         ZStack {
-            // Background layer
+            // Background Layer
             Color(.secondarySystemBackground).ignoresSafeArea()
-            
-            if coreVM.allTasks.isEmpty {
-                noTasksText
-            } else {
-                categorizedList
+
+            VStack {
+                if coreVM.allTasks.isEmpty {
+                    noTasksText
+                } else {
+                    categorizedList
+                }
             }
         }
         .navigationTitle("Task Tracker")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    // menu
+                    menuViewIsOnToggle()
                 } label: {
                     Image(systemName: "line.3.horizontal")
                         .font(.headline)
                 }
             }
-            
+
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
                     NavigationLink {
@@ -59,52 +61,21 @@ struct CoreView_Previews: PreviewProvider {
     }
 }
 
+// MARK: Extracted views
 extension CoreView {
     private var noTasksText: some View {
         VStack(spacing: 10) {
             Text("일정 목록이 비어있습니다.")
                 .font(.headline)
                 .fontWeight(.bold)
-            
+
             Text("할 일을 추가해보세요!")
                 .font(.subheadline)
         }
         .foregroundColor(.secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    
-//    Another sections:
-//    private var taskCategorizedSection: some View {
-//        Section {
-//            ScrollView {
-//                LazyHStack {
-//
-//                }
-//            }
-//        } header: {
-//            HStack {
-//                Text("Categorized")
-//                Spacer()
-//                Image(systemName: "chevron.up")
-//            }
-//        }
-//    }
-//
-//    private var taskListSection: some View {
-//        Section {
-//            if coreVM.taskSectionIsExpanded {
-//                ForEach(coreVM.allTasks) { task in
-//                    NavigationLink(value: task) {
-//                        TaskRowView(task: task)
-//                            .environmentObject(coreVM)
-//                    }
-//                }
-//            }
-//        } header: {
-//            FoldableSectionHeader(isExpanded: $coreVM.taskSectionIsExpanded, text: "Tasks")
-//        }
-//    }
-    
+
     private var categorizedList: some View {
         List {
             ForEach(coreVM.allCategories, id: \.self) { categoryName in
@@ -113,6 +84,15 @@ extension CoreView {
                         .environmentObject(coreVM)
                 }
             }
+        }
+    }
+}
+
+// MARK: Methods
+extension CoreView {
+    private func menuViewIsOnToggle() {
+        withAnimation(.easeInOut) {
+            coreVM.menuViewIsOn.toggle()
         }
     }
 }
