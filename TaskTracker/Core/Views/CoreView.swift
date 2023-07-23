@@ -108,25 +108,9 @@ extension CoreView {
     private var categorizedList: some View {
         List {
             ForEach(coreVM.allCategories, id: \.self) { categoryName in
-                Section {
-                    ForEach(coreVM.allTasks.filter {$0.category == categoryName}) { task in
-                        NavigationLink(value: task) {
-                            TaskRowView(task: task)
-                                .environmentObject(coreVM)
-                        }
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                withAnimation(.spring()) {
-                                    coreVM.deleteTask(task: task)
-                                }
-                            } label: {
-                                Image(systemName: "trash")
-                                    .tint(Color.accentColor)
-                            }
-                        }
-                    }
-                } header: {
-                    Text(categoryName)
+                if coreVM.allTasks.filter({$0.category == categoryName}).isEmpty == false {
+                    FoldableSection(category: categoryName)
+                        .environmentObject(coreVM)
                 }
             }
         }

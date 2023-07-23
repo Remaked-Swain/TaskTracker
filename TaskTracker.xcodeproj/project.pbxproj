@@ -24,6 +24,7 @@
 		0488BA4E2A691EBC00484208 /* TaskFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA4D2A691EBC00484208 /* TaskFormViewModel.swift */; };
 		0488BA562A6AB4EA00484208 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA552A6AB4EA00484208 /* SearchBarView.swift */; };
 		0488BA582A6AC03400484208 /* FoldableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA572A6AC03400484208 /* FoldableSectionHeader.swift */; };
+		0488BA5A2A6D0CC300484208 /* FoldableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA592A6D0CC300484208 /* FoldableSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		0488BA4D2A691EBC00484208 /* TaskFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewModel.swift; sourceTree = "<group>"; };
 		0488BA552A6AB4EA00484208 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		0488BA572A6AC03400484208 /* FoldableSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldableSectionHeader.swift; sourceTree = "<group>"; };
+		0488BA592A6D0CC300484208 /* FoldableSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldableSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				0459E3752A61B246000B0434 /* CoreView.swift */,
 				0488BA2B2A62557B00484208 /* TaskRowView.swift */,
 				0488BA322A63EDB400484208 /* TaskFormView.swift */,
+				0488BA592A6D0CC300484208 /* FoldableSection.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				0488BA562A6AB4EA00484208 /* SearchBarView.swift in Sources */,
 				0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */,
 				0459E3762A61B246000B0434 /* CoreView.swift in Sources */,
+				0488BA5A2A6D0CC300484208 /* FoldableSection.swift in Sources */,
 				0488BA4C2A6916B900484208 /* TaskTracker.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,7 +11,6 @@ import Combine
 class CoreViewModel: ObservableObject {
     @Published var allTasks: [TaskModel] = []
     @Published var allCategories: [String] = ["분류 없음"]
-    private var cancellables = Set<AnyCancellable>()
     
     @Published var searchText: String = ""
     @Published var searchBarIsOn: Bool = false
