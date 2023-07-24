@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct CoreView: View {
-    @EnvironmentObject private var stagingVM: StagingViewModel
+    @EnvironmentObject private var coreVM: CoreViewModel
+    @Binding var isPresentedMenu: Bool
     
-    private var coreVM: CoreViewModel {
-        stagingVM.coreVM
-    }
-
     var body: some View {
         NavigationStack {
             ZStack {
@@ -28,13 +25,13 @@ struct CoreView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         withAnimation(.spring()) {
-                            stagingVM.isPresentedMenu.toggle()
+                            isPresentedMenu.toggle()
                         }
                     } label: {
-                        Image(systemName: stagingVM.isPresentedMenu ? "xmark" : "line.3.horizontal")
+                        Image(systemName: isPresentedMenu ? "xmark" : "line.3.horizontal")
                             .font(.headline)
                             .imageScale(.large)
-                            .opacity(stagingVM.isPresentedMenu ? 0 : 1)
+                            .opacity(isPresentedMenu ? 0 : 1)
                     }
                 }
                 
@@ -55,8 +52,8 @@ struct CoreView: View {
 
 struct CoreView_Previews: PreviewProvider {
     static var previews: some View {
-        CoreView()
-            .environmentObject(StagingViewModel(coreVM: CoreViewModel(coreDataManager: CoreDataManager.shared)))
+        CoreView(isPresentedMenu: .constant(false))
+            .environmentObject(CoreViewModel(coreDataManager: CoreDataManager.shared))
     }
 }
 

@@ -8,12 +8,8 @@
 import SwiftUI
 
 struct StagingView: View {
-    @StateObject private var stagingVM: StagingViewModel = StagingViewModel(coreVM: CoreViewModel(coreDataManager: CoreDataManager.shared))
+    @StateObject private var stagingVM: StagingViewModel = StagingViewModel()
     @Namespace var animation
-    
-    init() {
-        UITabBar.appearance().isHidden = true
-    }
     
     var body: some View {
         ZStack {
