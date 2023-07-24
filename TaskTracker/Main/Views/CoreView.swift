@@ -11,53 +11,33 @@ struct CoreView: View {
     @StateObject private var coreVM: CoreViewModel = CoreViewModel(coreDataManager: CoreDataManager.shared)
 
     var body: some View {
-        ZStack {
-            // Background Layer
-            Color(.secondarySystemBackground).ignoresSafeArea()
-
-            VStack {
+        NavigationStack {
+            ZStack {
                 if coreVM.allTasks.isEmpty {
                     noTasksText
                 } else {
                     categorizedList
                 }
             }
-        }
-        .navigationTitle("Task Tracker")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    menuViewIsOnToggle()
-                } label: {
-                    Image(systemName: "line.3.horizontal")
-                        .font(.headline)
-                }
-            }
-
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                HStack {
-                    NavigationLink {
-                        TaskFormView(task: nil)
-                            .environmentObject(coreVM)
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.headline)
-                    }
-                }
-            }
-        }
-        .navigationDestination(for: TaskModel.self) { task in
-            TaskFormView(task: task)
-                .environmentObject(coreVM)
+            .navigationTitle(Stage.core.id)
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    NavigationLink {
+//                        TaskFormView(task: nil)
+//                            .environmentObject(coreVM)
+//                    } label: {
+//                        Image(systemName: "plus")
+//                            .font(.headline)
+//                    }
+//                }
+//            }
         }
     }
 }
 
 struct CoreView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
-            CoreView()
-        }
+        CoreView()
     }
 }
 
@@ -84,6 +64,10 @@ extension CoreView {
                         .environmentObject(coreVM)
                 }
             }
+        }
+        .navigationDestination(for: TaskModel.self) { task in
+            TaskFormView(task: task)
+                .environmentObject(coreVM)
         }
     }
 }

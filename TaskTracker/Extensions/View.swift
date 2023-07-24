@@ -43,4 +43,8 @@ extension View {
     func autoCorrectionDisabledTextField() -> some View {
         self.modifier(TextFieldModifier())
     }
+    
+    func getRect() -> CGRect {
+        return UIScreen.main.bounds
+    }
 }
