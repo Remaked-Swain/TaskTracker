@@ -21,11 +21,21 @@ struct StageButton: View {
             Text(stage.id)
                 .fontWeight(.semibold)
         }
-        .foregroundColor(stagingVM.selectedStage.id == stage.id ? .accentColor : .secondary)
+        .foregroundColor(stagingVM.selectedStage.id == stage.id ? .white : .accentColor)
         .padding()
         .onTapGesture {
             changeStage()
         }
+        .frame(maxWidth: getRect().width - 170, alignment: .leading)
+        .background(
+            ZStack {
+                if stagingVM.selectedStage.id == stage.id {
+                    Color.accentColor
+                        .matchedGeometryEffect(id: "stageButton", in: animation)
+                        .cornerRadius(10)
+                }
+            }
+        )
     }
     
     private func changeStage() {

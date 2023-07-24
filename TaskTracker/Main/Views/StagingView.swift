@@ -24,25 +24,41 @@ struct StagingView: View {
             sideMenu
             
             ZStack {
+                // Two Background Layers
+                Color.white
+                    .opacity(0.5)
+                    .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
+                    .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
+                    .offset(x: stagingVM.isPresentedMenu ? -25 : 0)
+                    .padding(.vertical, 30)
+                
+                Color.white
+                    .opacity(0.4)
+                    .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
+                    .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
+                    .offset(x: stagingVM.isPresentedMenu ? -50 : 0)
+                    .padding(.vertical, 60)
+                
                 StageTab()
-                    .cornerRadius(stagingVM.isPresentedMenu ? 20 : 0)
-                    .scaleEffect(stagingVM.isPresentedMenu ? 0.84 : 1)
-                    .offset(x: stagingVM.isPresentedMenu ? getRect().width - 120 : 0)
-                    .ignoresSafeArea()
-                    .overlay(
-                        Button {
-                            withAnimation(.spring()) {
-                                stagingVM.isPresentedMenu.toggle()
-                            }
-                        } label: {
-                            Image(systemName: stagingVM.isPresentedMenu ? "xmark" : "line.3.horizontal")
-                                .font(.headline)
-                                .padding()
-                        }
-                        ,alignment: .topLeading
-                    )
-                    .environmentObject(StagingViewModel())
+                    .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
             }
+            .environmentObject(stagingVM)
+            .scaleEffect(stagingVM.isPresentedMenu ? 0.84 : 1)
+            .offset(x: stagingVM.isPresentedMenu ? getRect().width - 120 : 0)
+            .ignoresSafeArea()
+            .overlay(
+                Button(action: {
+                    withAnimation(.spring()) {
+                        stagingVM.isPresentedMenu.toggle()
+                    }
+                }, label: {
+                    Image(systemName: stagingVM.isPresentedMenu ? "xmark" : "line.3.horizontal")
+                        .fontWeight(.bold)
+                })
+                .padding()
+                
+                ,alignment: .topLeading
+            )
         }
     }
 }
