@@ -13,8 +13,6 @@ struct CategoriesView: View {
     @State private var selectedCategory: String = ""
     @Binding var isPresentedMenu: Bool
     
-    let columns: [GridItem] = [.init(.flexible()), .init(.flexible()), .init(.flexible())]
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -26,9 +24,13 @@ struct CategoriesView: View {
                             
                             Spacer()
                             
-                            Text("\(getCompletionPercentage(category: category) ?? "-")%")
-                                .font(.callout)
-                                .foregroundColor(.secondary)
+                            HStack {
+                                Text("\(coreVM.allTasks.filter {$0.category == category && $0.isCompleted == true}.count)")
+                                Text("/")
+                                Text("\(coreVM.allTasks.filter({$0.category == category}).count)")
+                            }
+                            .font(.callout)
+                            .foregroundColor(.secondary)
                         }
                         .swipeActions {
                             Button(role: .destructive) {
@@ -86,11 +88,6 @@ struct CategoriesView: View {
                 }
             }
         }
-    }
-    
-    private func getCompletionPercentage(category: String) -> String? {
-        let percentage = (Double(coreVM.allTasks.filter {$0.category == category && $0.isCompleted == true}.count) / Double(coreVM.allTasks.filter({$0.category == category}).count)) * 100
-        return percentage.formatPercentage()
     }
 }
 
