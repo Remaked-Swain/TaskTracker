@@ -33,7 +33,6 @@ struct FoldableSection: View {
                             }
                         } label: {
                             Image(systemName: "trash")
-                                .tint(Color.accentColor)
                         }
                     }
                 }

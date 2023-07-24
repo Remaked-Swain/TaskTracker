@@ -14,11 +14,15 @@ extension Double {
     /// 1.2 -> "1.2"
     /// 1.0 -> "1"
     /// ```
-    func formatPercentage() -> String {
+    func formatPercentage() -> String? {
+        if self.isNaN || self.isInfinite || self.isSignalingNaN {
+            return nil
+        }
+        
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = self.truncatingRemainder(dividingBy: 1) == 0 ? 0 : 2
-        return formatter.string(from: NSNumber(value: self)) ?? "\(self)"
+        return formatter.string(from: NSNumber(value: self))
     }
 }

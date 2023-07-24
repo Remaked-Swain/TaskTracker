@@ -14,7 +14,6 @@ class CoreViewModel: ObservableObject {
     
     @Published var searchText: String = ""
     @Published var searchBarIsOn: Bool = false
-    @Published var menuViewIsOn: Bool = false
     
     private let coreDataManager: CoreDataManager
     
@@ -66,7 +65,16 @@ extension CoreViewModel {
     }
     
     func removeCategory(category: String) {
+        updateTaskIfCategoryDeleted(category: category)
         coreDataManager.removeCategory(category: category)
         fetchCategories()
+    }
+    
+    private func updateTaskIfCategoryDeleted(category: String) {
+        for task in allTasks.filter({$0.category == category}) {
+            let tmpTask = TaskModel(id: task.id, title: task.title, taskDescription: task.taskDescription, deadline: task.deadline, isCompleted: task.isCompleted, category: nil)
+            saveTask(task: tmpTask)
+        }
+        fetchTasks()
     }
 }

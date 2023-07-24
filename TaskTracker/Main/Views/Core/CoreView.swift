@@ -87,12 +87,3 @@ extension CoreView {
         }
     }
 }
-
-// MARK: Methods
-extension CoreView {
-    private func menuViewIsOnToggle() {
-        withAnimation(.easeInOut) {
-            coreVM.menuViewIsOn.toggle()
-        }
-    }
-}

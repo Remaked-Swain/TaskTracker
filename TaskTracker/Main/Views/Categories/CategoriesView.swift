@@ -26,19 +26,18 @@ struct CategoriesView: View {
                             
                             Spacer()
                             
-                            Text(getCompletionPercentage(category: category))
+                            Text("\(getCompletionPercentage(category: category) ?? "-")%")
                                 .font(.callout)
                                 .foregroundColor(.secondary)
                         }
                         .swipeActions {
-                            Button {
+                            Button(role: .destructive) {
                                 withAnimation(.spring()) {
                                     coreVM.removeCategory(category: category)
                                 }
                             } label: {
                                 Image(systemName: "trash")
                             }
-                            .tint(.red)
                         }
                     }
                 }
@@ -89,7 +88,7 @@ struct CategoriesView: View {
         }
     }
     
-    private func getCompletionPercentage(category: String) -> String {
+    private func getCompletionPercentage(category: String) -> String? {
         let percentage = (Double(coreVM.allTasks.filter {$0.category == category && $0.isCompleted == true}.count) / Double(coreVM.allTasks.filter({$0.category == category}).count)) * 100
         return percentage.formatPercentage()
     }
