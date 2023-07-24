@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StagingView: View {
-    @StateObject private var stagingVM: StagingViewModel = StagingViewModel()
+    @StateObject private var stagingVM: StagingViewModel = StagingViewModel(coreVM: CoreViewModel(coreDataManager: CoreDataManager.shared))
     @Namespace var animation
     
     init() {
@@ -21,44 +21,11 @@ struct StagingView: View {
             Color(.secondarySystemBackground)
                 .ignoresSafeArea()
             
-            sideMenu
-            
-            ZStack {
-                // Two Background Layers
-                Color.white
-                    .opacity(0.5)
-                    .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
-                    .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
-                    .offset(x: stagingVM.isPresentedMenu ? -25 : 0)
-                    .padding(.vertical, 30)
-                
-                Color.white
-                    .opacity(0.4)
-                    .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
-                    .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
-                    .offset(x: stagingVM.isPresentedMenu ? -50 : 0)
-                    .padding(.vertical, 60)
-                
-                StageTab()
-                    .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
+            ScrollView(showsIndicators: false) {
+                sideMenu
             }
-            .environmentObject(stagingVM)
-            .scaleEffect(stagingVM.isPresentedMenu ? 0.84 : 1)
-            .offset(x: stagingVM.isPresentedMenu ? getRect().width - 120 : 0)
-            .ignoresSafeArea()
-            .overlay(
-                Button(action: {
-                    withAnimation(.spring()) {
-                        stagingVM.isPresentedMenu.toggle()
-                    }
-                }, label: {
-                    Image(systemName: stagingVM.isPresentedMenu ? "xmark" : "line.3.horizontal")
-                        .fontWeight(.bold)
-                })
-                .padding()
-                
-                ,alignment: .topLeading
-            )
+            
+            stageTabArea
         }
     }
 }
@@ -76,13 +43,30 @@ extension StagingView {
             Spacer()
             
             VStack(alignment: .leading, spacing: 10) {
-                // Profile picture
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(.gray.opacity(0.3))
-                    .padding(.top)
-                
-                Spacer()
+                HStack(spacing: 30) {
+                    // Profile picture
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 100, height: 100)
+                        .foregroundColor(.gray.opacity(0.3))
+                        .padding(.top)
+                    
+                    // Go back to stage
+                    Button {
+                        withAnimation(.spring()) {
+                            stagingVM.isPresentedMenu.toggle()
+                        }
+                    } label: {
+                        VStack {
+                            Image(systemName: "arrow.right.circle")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30, height: 30)
+                            Text("돌아가기")
+                                .font(.headline)
+                        }
+                    }
+
+                }
                 
                 // Destinations
                 VStack(alignment: .leading, spacing: 6) {
@@ -96,13 +80,30 @@ extension StagingView {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
-}
-
-struct Categories: View {
-    var body: some View {
-        NavigationStack {
-            Text("Categories")
-                .navigationTitle(Stage.categories.id)
+    
+    private var stageTabArea: some View {
+        ZStack {
+            // Two Background Layers
+            Color.white
+                .opacity(0.5)
+                .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
+                .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
+                .offset(x: stagingVM.isPresentedMenu ? -25 : 0)
+                .padding(.vertical, 30)
+            
+            Color.white
+                .opacity(0.4)
+                .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
+                .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
+                .offset(x: stagingVM.isPresentedMenu ? -50 : 0)
+                .padding(.vertical, 60)
+            
+            StageTab()
+                .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
         }
+        .environmentObject(stagingVM)
+        .scaleEffect(stagingVM.isPresentedMenu ? 0.84 : 1)
+        .offset(x: stagingVM.isPresentedMenu ? getRect().width - 120 : 0)
+        .ignoresSafeArea()
     }
 }

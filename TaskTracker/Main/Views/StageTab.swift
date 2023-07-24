@@ -14,9 +14,11 @@ struct StageTab: View {
         TabView(selection: $stagingVM.selectedStage) {
             CoreView()
                 .tag(Stage.core)
+                .environmentObject(stagingVM)
             
-            Categories()
+            CategoriesView()
                 .tag(Stage.categories)
+                .environmentObject(stagingVM)
         }
     }
 }
@@ -24,6 +26,6 @@ struct StageTab: View {
 struct StageTab_Previews: PreviewProvider {
     static var previews: some View {
         StageTab()
-            .environmentObject(StagingViewModel())
+            .environmentObject(StagingViewModel(coreVM: CoreViewModel(coreDataManager: CoreDataManager.shared)))
     }
 }

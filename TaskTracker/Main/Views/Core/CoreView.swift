@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct CoreView: View {
-    @StateObject private var coreVM: CoreViewModel = CoreViewModel(coreDataManager: CoreDataManager.shared)
+    @EnvironmentObject private var stagingVM: StagingViewModel
+    
+    private var coreVM: CoreViewModel {
+        stagingVM.coreVM
+    }
 
     var body: some View {
         NavigationStack {
@@ -20,17 +24,31 @@ struct CoreView: View {
                 }
             }
             .navigationTitle(Stage.core.id)
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    NavigationLink {
-//                        TaskFormView(task: nil)
-//                            .environmentObject(coreVM)
-//                    } label: {
-//                        Image(systemName: "plus")
-//                            .font(.headline)
-//                    }
-//                }
-//            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        withAnimation(.spring()) {
+                            stagingVM.isPresentedMenu.toggle()
+                        }
+                    } label: {
+                        Image(systemName: stagingVM.isPresentedMenu ? "xmark" : "line.3.horizontal")
+                            .font(.headline)
+                            .imageScale(.large)
+                            .opacity(stagingVM.isPresentedMenu ? 0 : 1)
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        TaskFormView(task: nil)
+                            .environmentObject(coreVM)
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.headline)
+                            .imageScale(.large)
+                    }
+                }
+            }
         }
     }
 }
@@ -38,6 +56,7 @@ struct CoreView: View {
 struct CoreView_Previews: PreviewProvider {
     static var previews: some View {
         CoreView()
+            .environmentObject(StagingViewModel(coreVM: CoreViewModel(coreDataManager: CoreDataManager.shared)))
     }
 }
 

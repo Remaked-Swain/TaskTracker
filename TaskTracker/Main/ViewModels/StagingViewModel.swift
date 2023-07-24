@@ -9,7 +9,13 @@ import Foundation
 
 class StagingViewModel: ObservableObject {
     @Published var selectedStage: Stage = .core
-    @Published var isPresentedMenu: Bool = false
+    @Published var isPresentedMenu: Bool = true
+    
+    let coreVM: CoreViewModel
     
     let stages: [Stage] = Stage.allCases
+    
+    init(coreVM: CoreViewModel) {
+        self.coreVM = coreVM
+    }
 }
