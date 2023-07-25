@@ -20,6 +20,9 @@ struct StageTab: View {
             CategoriesView(isPresentedMenu: $stagingVM.isPresentedMenu)
                 .tag(Stage.categories)
                 .environmentObject(coreVM)
+            
+            SettingView()
+                .tag(Stage.setting)
         }
     }
 }
