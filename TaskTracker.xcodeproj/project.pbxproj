@@ -32,6 +32,7 @@
 		0488BA662A6DF7AD00484208 /* StageTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA652A6DF7AD00484208 /* StageTab.swift */; };
 		0488BA6D2A6EA36400484208 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA6C2A6EA36400484208 /* CategoriesView.swift */; };
 		0488BA6F2A6EAED800484208 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA6E2A6EAED800484208 /* Double.swift */; };
+		0488BA722A6F932A00484208 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0488BA712A6F932A00484208 /* SettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		0488BA652A6DF7AD00484208 /* StageTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageTab.swift; sourceTree = "<group>"; };
 		0488BA6C2A6EA36400484208 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		0488BA6E2A6EAED800484208 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		0488BA712A6F932A00484208 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				0488BA652A6DF7AD00484208 /* StageTab.swift */,
 				0488BA672A6E87E400484208 /* Core */,
 				0488BA6B2A6EA34800484208 /* Categories */,
+				0488BA702A6F931600484208 /* Setting */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,6 +221,14 @@
 				0488BA6C2A6EA36400484208 /* CategoriesView.swift */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		0488BA702A6F931600484208 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				0488BA712A6F932A00484208 /* SettingView.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,6 +322,7 @@
 				0459E3702A619AEE000B0434 /* CoreViewModel.swift in Sources */,
 				0488BA602A6D3AC300484208 /* StageButton.swift in Sources */,
 				0459E3762A61B246000B0434 /* StagingView.swift in Sources */,
+				0488BA722A6F932A00484208 /* SettingView.swift in Sources */,
 				0488BA5A2A6D0CC300484208 /* FoldableSection.swift in Sources */,
 				0488BA4C2A6916B900484208 /* TaskTracker.xcdatamodeld in Sources */,
 			);

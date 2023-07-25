@@ -25,7 +25,7 @@ struct CategoriesView: View {
                             Spacer()
                             
                             HStack {
-                                Text("\(coreVM.allTasks.filter {$0.category == category && $0.isCompleted == true}.count)")
+                                Text("\(coreVM.allTasks.filter {$0.category == category && $0.isCompleted == false}.count)")
                                 Text("/")
                                 Text("\(coreVM.allTasks.filter({$0.category == category}).count)")
                             }
