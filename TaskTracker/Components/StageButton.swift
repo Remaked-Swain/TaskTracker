@@ -21,7 +21,7 @@ struct StageButton: View {
             Text(stage.id)
                 .fontWeight(.semibold)
         }
-        .foregroundColor(stagingVM.selectedStage.id == stage.id ? .theme.secondaryColor : .theme.accentColor)
+        .foregroundColor(stagingVM.selectedStage.id == stage.id ? .white : .theme.accentColor)
         .padding()
         .onTapGesture {
             changeStage()

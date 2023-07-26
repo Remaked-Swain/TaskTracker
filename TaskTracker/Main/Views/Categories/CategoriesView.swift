@@ -50,7 +50,7 @@ struct CategoriesView: View {
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.white)
+                                .foregroundColor(.theme.secondaryColor.opacity(0.3))
                         )
                     
                     Button {

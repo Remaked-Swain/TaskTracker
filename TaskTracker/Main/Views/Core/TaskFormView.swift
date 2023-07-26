@@ -24,18 +24,22 @@ struct TaskFormView: View {
                     TextField("제목", text: $taskFormVM.textFieldTitle)
                         .autoCorrectionDisabledTextField()
                         .padding()
-                        .secondarySystemBackgroundModifier()
+                        .background(Color.theme.secondaryColor.opacity(0.3))
+                        .cornerRadius(10)
                     
                     TextField("할 일에 대한 설명", text: $taskFormVM.textFieldTaskDescription)
                         .autoCorrectionDisabledTextField()
                         .padding()
-                        .secondarySystemBackgroundModifier()
+                        .background(Color.theme.secondaryColor.opacity(0.3))
+                        .cornerRadius(10)
                     
                     datePickerSection
-                        .secondarySystemBackgroundModifier()
+                        .background(Color.theme.secondaryColor.opacity(0.3))
+                        .cornerRadius(10)
                     
                     categoryPickerSection
-                        .secondarySystemBackgroundModifier()
+                        .background(Color.theme.secondaryColor.opacity(0.3))
+                        .cornerRadius(10)
                 }
                 
                 controlButtons
@@ -130,7 +134,7 @@ extension TaskFormView {
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.theme.backgroundColor)
+                                .foregroundColor(.theme.secondaryColor.opacity(0.3))
                         )
                     
                     Button {
@@ -161,7 +165,7 @@ extension TaskFormView {
                         .frame(maxWidth: .infinity)
                         .frame(height: 55)
                         .foregroundColor(.white)
-                        .background(Color.secondary.cornerRadius(10))
+                        .background(Color.theme.secondaryColor.cornerRadius(10))
                 }
             }
             

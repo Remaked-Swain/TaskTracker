@@ -57,13 +57,13 @@ extension TaskRowView {
                     .strikethrough(isCompleted)
                 
                 Text(task.taskDescription)
-                    .font(.subheadline)
+                    .font(.subheadline.weight(.semibold))
                     .foregroundColor(.theme.secondaryColor)
                     .lineLimit(1)
                     .strikethrough(isCompleted)
                 
                 Text(CalendarService.shared.getRemainingTime(deadline: task.deadline))
-                    .font(.subheadline)
+                    .font(.subheadline.weight(.semibold))
                     .foregroundColor(.theme.secondaryColor)
                     .lineLimit(1)
                     .strikethrough(isCompleted)

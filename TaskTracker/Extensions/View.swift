@@ -8,19 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct SecondarySystemBackgroundModifier: ViewModifier {
-    let backgroundColor: Color
-    let foregroundColor: Color
-    let font: Font
-    
-    func body(content: Content) -> some View {
-        content
-            .foregroundColor(foregroundColor)
-            .background(backgroundColor)
-            .cornerRadius(10)
-    }
-}
-
 struct TextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -30,16 +17,6 @@ struct TextFieldModifier: ViewModifier {
 }
 
 extension View {
-    func secondarySystemBackgroundModifier(foregroundColor: Color = .black, font: Font = .headline) -> some View {
-        self.modifier(
-            SecondarySystemBackgroundModifier(
-                backgroundColor: Color.theme.secondaryColor,
-                foregroundColor: foregroundColor,
-                font: font
-            )
-        )
-    }
-    
     func autoCorrectionDisabledTextField() -> some View {
         self.modifier(TextFieldModifier())
     }

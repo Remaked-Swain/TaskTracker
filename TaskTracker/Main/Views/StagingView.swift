@@ -15,7 +15,7 @@ struct StagingView: View {
     var body: some View {
         ZStack {
             // Background Layer
-            Color(.secondarySystemBackground)
+            Color.theme.backgroundColor
                 .ignoresSafeArea()
             
             ScrollView(showsIndicators: false) {
@@ -68,10 +68,9 @@ extension StagingView {
                                 .font(.headline)
                         }
                     }
-
                 }
                 
-                // Destinations
+                // Stages
                 VStack(alignment: .leading, spacing: 6) {
                     ForEach(stagingVM.stages) { stage in
                         StageButton(stage: stage, animation: animation)
@@ -87,14 +86,14 @@ extension StagingView {
     private var stageTabArea: some View {
         ZStack {
             // Two Background Layers
-            Color.white
+            Color.theme.backgroundColor
                 .opacity(0.5)
                 .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
                 .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
                 .offset(x: stagingVM.isPresentedMenu ? -25 : 0)
                 .padding(.vertical, 30)
             
-            Color.white
+            Color.theme.backgroundColor
                 .opacity(0.4)
                 .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
                 .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
