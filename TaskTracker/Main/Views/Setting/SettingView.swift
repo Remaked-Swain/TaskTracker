@@ -13,35 +13,24 @@ struct SettingView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.secondarySystemBackground).ignoresSafeArea()
-                
-                VStack(spacing: 30) {
+                List {
                     NavigationLink {
-                        // Theme
+                        HelpView()
                     } label: {
-                        VStack {
-                            Image(systemName: "paintbrush")
-                                .resizable()
-                                .scaledToFit()
-                            Text("테마 변경")
-                                .font(.headline)
-                        }
-                        .modifier(SettingButtonModifier())
+                        Image(systemName: "questionmark.bubble")
+                            .foregroundColor(.accentColor)
+                        Text("도움말")
                     }
                     
                     NavigationLink {
-                        // Theme
+                        DeveloperInfoView()
                     } label: {
-                        VStack {
-                            Image(systemName: "questionmark.circle")
-                                .resizable()
-                                .scaledToFit()
-                            Text("도움말")
-                                .font(.headline)
-                        }
-                        .modifier(SettingButtonModifier())
+                        Image(systemName: "doc.append")
+                            .foregroundColor(.accentColor)
+                        Text("개발자 정보")
                     }
                 }
+                .font(.headline)
             }
             .navigationTitle(Stage.setting.id)
             .toolbar {

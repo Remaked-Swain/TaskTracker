@@ -29,18 +29,6 @@ struct TextFieldModifier: ViewModifier {
     }
 }
 
-struct SettingButtonModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .padding()
-            .foregroundColor(.accentColor)
-            .frame(width: 250, height: 170)
-            .background(Color.white)
-            .cornerRadius(25)
-            .shadow(radius: 10)
-    }
-}
-
 extension View {
     func secondarySystemBackgroundModifier(foregroundColor: Color = .black, font: Font = .headline) -> some View {
         self.modifier(
