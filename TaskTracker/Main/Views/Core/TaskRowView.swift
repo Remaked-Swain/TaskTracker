@@ -28,7 +28,7 @@ struct TaskRowView: View {
 
 struct TaskRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskRowView(task: dev.tasks.first!)
+        TaskRowView(task: dev.tasks[3])
             .environmentObject(CoreViewModel(coreDataManager: dev.coreDataManager))
     }
 }
@@ -62,7 +62,7 @@ extension TaskRowView {
                     .lineLimit(1)
                     .strikethrough(isCompleted)
                 
-                Text(CalendarService.shared.formatDate(task.deadline))
+                Text(CalendarService.shared.getRemainingTime(deadline: task.deadline))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .lineLimit(1)
