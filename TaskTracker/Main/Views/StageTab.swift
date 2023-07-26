@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StageTab: View {
     @EnvironmentObject private var stagingVM: StagingViewModel
-    @State private var coreVM: CoreViewModel = CoreViewModel(coreDataManager: CoreDataManager.shared)
+    @EnvironmentObject private var coreVM: CoreViewModel
     
     var body: some View {
         TabView(selection: $stagingVM.selectedStage) {

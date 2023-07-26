@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StagingView: View {
     @StateObject private var stagingVM: StagingViewModel = StagingViewModel()
+    @StateObject private var coreVM: CoreViewModel = CoreViewModel(coreDataManager: CoreDataManager.shared)
     @Namespace var animation
     
     var body: some View {
@@ -41,10 +42,16 @@ extension StagingView {
             VStack(alignment: .leading, spacing: 10) {
                 HStack(spacing: 30) {
                     // Profile picture
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 100, height: 100)
-                        .foregroundColor(.gray.opacity(0.3))
-                        .padding(.top)
+                    ZStack(alignment: .center) {
+                        ProgressCircle(totalTasksCount: coreVM.allTasks.count, completedTasksCount: coreVM.allTasks.filter({$0.isCompleted == true}).count)
+                            .frame(width: 100, height: 100)
+                        
+                        Image("dev-jeans")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 80, height: 80)
+                            .clipShape(Circle())
+                    }
                     
                     // Go back to stage
                     Button {
@@ -98,6 +105,7 @@ extension StagingView {
                 .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
         }
         .environmentObject(stagingVM)
+        .environmentObject(coreVM)
         .scaleEffect(stagingVM.isPresentedMenu ? 0.84 : 1)
         .offset(x: stagingVM.isPresentedMenu ? getRect().width - 120 : 0)
         .ignoresSafeArea()
