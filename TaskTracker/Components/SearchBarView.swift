@@ -13,7 +13,7 @@ struct SearchBarView: View {
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
-                .foregroundColor(searchText.isEmpty ? .secondary : .accentColor)
+                .foregroundColor(searchText.isEmpty ? .theme.secondaryColor : .theme.accentColor)
             
             TextField(text: $searchText) {
                 Text("제목으로 검색")
@@ -21,14 +21,14 @@ struct SearchBarView: View {
             
             if searchText.isEmpty == false {
                 Image(systemName: "xmark")
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(.theme.accentColor)
                     .onTapGesture {
                         clearSearchText()
                     }
             }
         }
         .padding()
-        .background(Color(.secondarySystemBackground).cornerRadius(10))
+        .background(Color.theme.secondaryColor.cornerRadius(10))
     }
     
     private func clearSearchText() {

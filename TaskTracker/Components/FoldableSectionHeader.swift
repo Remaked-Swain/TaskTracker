@@ -32,7 +32,7 @@ struct FoldableSectionHeader: View {
             } label: {
                 label
                     .rotationEffect(Angle(degrees: isExpanded ? 0 : 180))
-                    .tint(.accentColor)
+                    .tint(.theme.accentColor)
             }
         }
     }

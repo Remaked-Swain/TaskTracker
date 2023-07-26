@@ -63,7 +63,7 @@ extension TaskFormView {
                 Image(systemName: "calendar")
                     .imageScale(.large)
                     .fontWeight(.semibold)
-                    .foregroundColor(taskFormVM.datePickerIsOn ? .accentColor : .secondary)
+                    .foregroundColor(taskFormVM.datePickerIsOn ? .theme.accentColor : .theme.secondaryColor)
                 
                 Text("마감기한")
                 
@@ -72,7 +72,7 @@ extension TaskFormView {
                 Image(systemName: "chevron.up")
                     .fontWeight(.semibold)
                     .rotationEffect(Angle(degrees: taskFormVM.datePickerIsOn ? 0 : 180))
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(.theme.accentColor)
             }
             .onTapGesture {
                 withAnimation(.easeInOut) {
@@ -85,7 +85,7 @@ extension TaskFormView {
                     Text("마감기한")
                 }
                 .datePickerStyle(.graphical)
-                .tint(Color.accentColor)
+                .tint(Color.theme.accentColor)
             }
         }
         .padding()
@@ -97,7 +97,7 @@ extension TaskFormView {
                 Image(systemName: "folder")
                     .imageScale(.large)
                     .fontWeight(.semibold)
-                    .foregroundColor(taskFormVM.categoryPickerIsOn ? .accentColor : .secondary)
+                    .foregroundColor(taskFormVM.categoryPickerIsOn ? .theme.accentColor : .theme.secondaryColor)
                 
                 Text("카테고리")
                 
@@ -106,7 +106,7 @@ extension TaskFormView {
                 Image(systemName: "chevron.up")
                     .fontWeight(.semibold)
                     .rotationEffect(Angle(degrees: taskFormVM.categoryPickerIsOn ? 0 : 180))
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(.theme.accentColor)
             }
             .onTapGesture {
                 withAnimation(.easeInOut) {
@@ -130,7 +130,7 @@ extension TaskFormView {
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.white)
+                                .foregroundColor(.theme.backgroundColor)
                         )
                     
                     Button {
@@ -141,7 +141,7 @@ extension TaskFormView {
                             .frame(width: 40)
                             .frame(maxHeight: .infinity)
                             .foregroundColor(.white)
-                            .background(Color.accentColor.cornerRadius(10))
+                            .background(Color.theme.accentColor.cornerRadius(10))
                     }
                 }
             }

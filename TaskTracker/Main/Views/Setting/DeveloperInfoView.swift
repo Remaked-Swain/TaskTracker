@@ -10,7 +10,7 @@ import SwiftUI
 struct DeveloperInfoView: View {
     var body: some View {
         ZStack {
-            Color(.secondarySystemBackground).ignoresSafeArea()
+            Color.theme.secondaryColor.ignoresSafeArea()
             
             HStack {
                 Image("dev-jeans")
@@ -30,7 +30,7 @@ struct DeveloperInfoView: View {
             }
             .frame(maxWidth: .infinity)
             .frame(height: 100)
-            .background(RoundedRectangle(cornerRadius: 25).foregroundColor(.white))
+            .background(RoundedRectangle(cornerRadius: 25).foregroundColor(.theme.backgroundColor))
             .padding()
         }
         .navigationTitle("개발자 정보")

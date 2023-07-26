@@ -31,5 +31,6 @@ struct StageTab_Previews: PreviewProvider {
     static var previews: some View {
         StageTab()
             .environmentObject(StagingViewModel())
+            .environmentObject(CoreViewModel(coreDataManager: CoreDataManager.shared))
     }
 }

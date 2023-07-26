@@ -21,13 +21,13 @@ struct ProgressCircle: View {
         ZStack {
             Circle()
                 .stroke(lineWidth: 10)
-                .foregroundColor(.accentColor)
+                .foregroundColor(.theme.secondaryColor)
                 .opacity(0.3)
             
             Circle()
                 .trim(from: 0.0, to: CGFloat(progress))
                 .stroke(style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
-                .foregroundColor(.accentColor)
+                .foregroundColor(.theme.accentColor)
                 .rotationEffect(Angle(degrees: -90))
                 .animation(.spring(), value: progress)
         }

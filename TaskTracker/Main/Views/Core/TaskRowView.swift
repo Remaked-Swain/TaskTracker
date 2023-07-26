@@ -40,7 +40,7 @@ extension TaskRowView {
             ZStack {
                 Image(systemName: isCompleted ? "checkmark" : "circle.inset.filled")
                     .aspectRatio(contentMode: .fill)
-                    .foregroundColor(isCompleted ? .secondary : .accentColor)
+                    .foregroundColor(isCompleted ? .theme.secondaryColor : .theme.accentColor)
                     .scaleEffect(isCompleted ? 1.0 : 2)
                     .animation(.spring(), value: isCompleted)
                     .onTapGesture {
@@ -52,19 +52,19 @@ extension TaskRowView {
             VStack(alignment: .leading) {
                 Text(task.title)
                     .font(.headline)
-                    .foregroundColor(isCompleted ? .secondary : .accentColor)
+                    .foregroundColor(isCompleted ? .theme.secondaryColor : .theme.accentColor)
                     .fontWeight(.bold)
                     .strikethrough(isCompleted)
                 
                 Text(task.taskDescription)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.theme.secondaryColor)
                     .lineLimit(1)
                     .strikethrough(isCompleted)
                 
                 Text(CalendarService.shared.getRemainingTime(deadline: task.deadline))
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.theme.secondaryColor)
                     .lineLimit(1)
                     .strikethrough(isCompleted)
             }

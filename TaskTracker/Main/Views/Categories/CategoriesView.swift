@@ -30,7 +30,7 @@ struct CategoriesView: View {
                                 Text("\(coreVM.allTasks.filter({$0.category == category}).count)")
                             }
                             .font(.callout)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.theme.secondaryColor)
                         }
                         .swipeActions {
                             Button(role: .destructive) {

@@ -33,7 +33,7 @@ extension View {
     func secondarySystemBackgroundModifier(foregroundColor: Color = .black, font: Font = .headline) -> some View {
         self.modifier(
             SecondarySystemBackgroundModifier(
-                backgroundColor: Color(.secondarySystemBackground),
+                backgroundColor: Color.theme.secondaryColor,
                 foregroundColor: foregroundColor,
                 font: font
             )

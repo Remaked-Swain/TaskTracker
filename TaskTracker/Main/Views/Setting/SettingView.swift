@@ -18,7 +18,7 @@ struct SettingView: View {
                         HelpView()
                     } label: {
                         Image(systemName: "questionmark.bubble")
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(.theme.accentColor)
                         Text("도움말")
                     }
                     
@@ -26,7 +26,7 @@ struct SettingView: View {
                         DeveloperInfoView()
                     } label: {
                         Image(systemName: "doc.append")
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(.theme.accentColor)
                         Text("개발자 정보")
                     }
                 }

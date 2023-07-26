@@ -68,7 +68,7 @@ extension CoreView {
             Text("할 일을 추가해보세요!")
                 .font(.subheadline)
         }
-        .foregroundColor(.secondary)
+        .foregroundColor(.theme.secondaryColor)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
