@@ -7,7 +7,7 @@
 
 import Foundation
 
-// 앱 내에서 기능하는 모든 스테이지들을 정의
+// 앱의 모든 스테이지들을 정의
 // 계정, 할 일 목록, 카테고리 관리, 설정
 @frozen enum Stage: String, Identifiable, CaseIterable {
     case account, core, categories, setting

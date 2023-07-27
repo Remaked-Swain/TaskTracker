@@ -62,26 +62,91 @@
 
 ## ViewModels
 * CoreViewModel
-
     * 할 일 목록의 로직을 담당하는 ViewModel 이며 CalendarService, CoreDataManager 의 도움을 받아 Task, Category 관련 인터페이스를 담당한다.
-    * 
 
 -----------------------
 
 ## Models
 * StageModel
-> 
+    ```Swift
+    // 앱의 모든 스테이지들을 정의
+    // 계정, 할 일 목록, 카테고리 관리, 설정
+    @frozen enum Stage: String, Identifiable, CaseIterable {
+        case account, core, categories, setting
+        
+        var id: String {
+            switch self {
+            case .account: return "계정"
+            case .core: return "할 일 목록"
+            case .categories: return "카테고리 관리"
+            case .setting: return "설정"
+            }
+        }
+        
+        var imageName: String {
+            switch self {
+            case .account: return "person.circle"
+            case .core: return "doc.text.fill"
+            case .categories: return "bookmark.circle"
+            case .setting: return "gear.circle"
+            }
+        }
+    }
+    ```
+    * 메뉴 버튼을 눌렀을 때 보여지는 StagingView 에서 각 스테이지 마다 이름과 아이콘을 지정해주기 위해 enum 형으로 정리한 StageModel 이다.
 * TaskModel
+    * 하나의 할 일을 표현하기 위해 만든 TaskModel 이다. 제목, 설명, 마감기한, 카테고리, 완료 여부, 식별을 위한 id값을 프로퍼티로 갖는다.
 
 -----------------------
 
 ## Services
 * CalendarService
+    * 날짜나 시간과 관련한 작업을 도맡기 위해 만든 서비스 클래스이다.
+    ```Swift
+    class CalendarService {
+        static let shared = CalendarService()
+
+        private let calendar = Calendar.current
+
+        func getRemainingTime(deadline: Date?) -> String {
+            guard let deadline = deadline else { return "" }
+            
+            let now = Date()
+            let remainingTime = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now, to: deadline)
+            
+            if let years = remainingTime.year, years > 0 {
+                return "\(years)년 이상"
+            } else if let months = remainingTime.month, months > 0 {
+                return "\(months)월 \(remainingTime.day ?? 0)일"
+            } else if let days = remainingTime.day, days > 2 {
+                return "\(days)일"
+            } else if let days = remainingTime.day, days == 2 {
+                return "모레"
+            } else if let days = remainingTime.day, days == 1 {
+                return "내일"
+            } else if let hours = remainingTime.hour, hours > 0 {
+                return "\(hours)시간 \(remainingTime.minute ?? 0)분 \(remainingTime.second ?? 0)초"
+            } else if let minutes = remainingTime.minute, minutes > 0 {
+                return "\(minutes)분 \(remainingTime.second ?? 0)초"
+            } else if let seconds = remainingTime.second, seconds >= 0 {
+                return "\(seconds)초"
+            } else {
+                return "기한 초과"
+            }
+        }
+    }
+    ```
+    * 할 일에 마감기한과 현재 시간을 비교하여 남은 기간에 따라 어떤 메시지를 노출시켜야 아름다울까 많이 고민했다.
 
 -----------------------
 
 ## Utilities
 * CoreDataManager
+    * 할 일과 카테고리의 정보 저장을 위해 CoreData 프레임워크를 사용하기로 하였고, CoreData 관련 로직을 담당할 클래스를 만들었다.
+    * 특히 Task와 Category 각 모델이 나뉘어져 있으므로 Task, Category 로직을 따로 분리해두는 것이 중요했다.
+    * 그리고 CoreViewModel 은 유저인터페이스와 밀접하게, CoreDataManager 는 내부 로직에 밀접하게 운용되므로 두 클래스의 CRUD 메서드를 유연히 연결하면서도 적절한 접근제한을 통해 역할을 분명히 해야했다.
+    * 앱을 조작하면서 작업이 처리되는 순서와 주의사항을 생각했다. 또한 이 과정을 검증하기 위해 테스트를 많이 시도했다.
+    * 나중에는 Combine 프레임워크를 채택하여 CoreViewModel 에서 Published 로 관리하는 Task, Category 배열을 비동기적으로 save, fetch 하는 기능도 추가했으면 좋겠다.
 
 -----------------------
 
