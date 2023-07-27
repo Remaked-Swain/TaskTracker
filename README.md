@@ -3,15 +3,19 @@
 
 ## Views
 * StagingView
-<img src="https://github.com/Remaked-Swain/ScreenShotRepository/blob/main/TaskTracker/StagingView.png?raw=true" alt="StagingView" width="200" height="400">
-<img src="https://github.com/Remaked-Swain/ScreenShotRepository/blob/main/TaskTracker/StagingView_dark.png?raw=true" alt="StagingView_dark" width="200" height="400">
+<p>
+    <img src="https://github.com/Remaked-Swain/ScreenShotRepository/blob/main/TaskTracker/StagingView.png?raw=true" alt="StagingView" width="200" height="400">
+    <img src="https://github.com/Remaked-Swain/ScreenShotRepository/blob/main/TaskTracker/StagingView_dark.png?raw=true" alt="StagingView_dark" width="200" height="400">
+</p>
     > 각 역할을 가진 스테이지들이 있고, 그 스테이지들은 StagingView 에 모여 있게 만들고 싶었다.
     > 스테이지에서 메뉴 버튼을 누르면 StagingView 로 이동하게 되는 메뉴 뷰와 같다.
     > 사용자 사진의 테두리는 모든 할 일 개수 중 완료된 할 일의 수를 백분율로 나타내는 진행상태 표시기를 만들었다.
 -----------------------
 * CoreView
-<img src="https://github.com/Remaked-Swain/ScreenShotRepository/blob/main/TaskTracker/CoreView.png?raw=true" alt="StagingView" width="200" height="400">
-<img src="https://github.com/Remaked-Swain/ScreenShotRepository/blob/main/TaskTracker/CoreView_dark.png?raw=true" alt="StagingView" width="200" height="400">
+<p>
+    <img src="https://github.com/Remaked-Swain/ScreenShotRepository/blob/main/TaskTracker/CoreView.png?raw=true" alt="StagingView" width="200" height="400">
+    <img src="https://github.com/Remaked-Swain/ScreenShotRepository/blob/main/TaskTracker/CoreView_dark.png?raw=true" alt="StagingView" width="200" height="400">
+</p>
     > 저장한 할 일들이 목록으로 나열되는 뷰.
     > 완료 여부가 표시되는 버튼을 터치하여 완료/비완료 상태로 변경하면 그에 맞게 색상, 취소선, 스케일이펙트에 애니메이션을 주어 시각적으로 표시하였다.
     > 할 일은 카테고리 별로 분류되도록 하였고 각 섹션은 화살표를 눌러 접었다, 폈다 할 수도 있다!
