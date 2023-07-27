@@ -17,6 +17,7 @@
     <img src="https://github.com/Remaked-Swain/ScreenShotRepository/blob/main/TaskTracker/CoreView.png?raw=true" alt="StagingView" width="250px">
     <img src="https://github.com/Remaked-Swain/ScreenShotRepository/blob/main/TaskTracker/CoreView_dark.png?raw=true" alt="StagingView" width="250px">
 </p>
+
 > 저장한 할 일들이 목록으로 나열되는 뷰.
 > 완료 여부가 표시되는 버튼을 터치하여 완료/비완료 상태로 변경하면 그에 맞게 색상, 취소선, 스케일이펙트에 애니메이션을 주어 시각적으로 표시하였다.
 > 할 일은 카테고리 별로 분류되도록 하였고 각 섹션은 화살표를 눌러 접었다, 폈다 할 수도 있다!
