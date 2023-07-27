@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct StagingView: View {
-    @StateObject private var stagingVM: StagingViewModel = StagingViewModel()
     @StateObject private var coreVM: CoreViewModel = CoreViewModel(coreDataManager: CoreDataManager.shared)
     @Namespace var animation
+    @State private var selectedStage: Stage = .core
+    @State private var isPresentedMenu: Bool = false
+    
+    private let stages: [Stage] = Stage.allCases
     
     var body: some View {
         ZStack {
@@ -56,7 +59,7 @@ extension StagingView {
                     // Go back to stage
                     Button {
                         withAnimation(.spring()) {
-                            stagingVM.isPresentedMenu.toggle()
+                            isPresentedMenu.toggle()
                         }
                     } label: {
                         VStack {
@@ -72,9 +75,8 @@ extension StagingView {
                 
                 // Stages
                 VStack(alignment: .leading, spacing: 6) {
-                    ForEach(stagingVM.stages) { stage in
-                        StageButton(stage: stage, animation: animation)
-                            .environmentObject(stagingVM)
+                    ForEach(stages) { stage in
+                        StageButton(selectedStage: $selectedStage, stage: stage, animation: animation)
                     }
                 }
             }
@@ -88,25 +90,24 @@ extension StagingView {
             // Two Background Layers
             Color.theme.backgroundColor
                 .opacity(0.5)
-                .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
+                .cornerRadius(isPresentedMenu ? 45 : 0)
                 .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
-                .offset(x: stagingVM.isPresentedMenu ? -25 : 0)
+                .offset(x: isPresentedMenu ? -25 : 0)
                 .padding(.vertical, 30)
             
             Color.theme.backgroundColor
                 .opacity(0.4)
-                .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
+                .cornerRadius(isPresentedMenu ? 45 : 0)
                 .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
-                .offset(x: stagingVM.isPresentedMenu ? -50 : 0)
+                .offset(x: isPresentedMenu ? -50 : 0)
                 .padding(.vertical, 60)
             
-            StageTab()
-                .cornerRadius(stagingVM.isPresentedMenu ? 45 : 0)
+            StageTab(isPresentedMenu: $isPresentedMenu, selectedStage: $selectedStage)
+                .cornerRadius(isPresentedMenu ? 45 : 0)
         }
-        .environmentObject(stagingVM)
         .environmentObject(coreVM)
-        .scaleEffect(stagingVM.isPresentedMenu ? 0.84 : 1)
-        .offset(x: stagingVM.isPresentedMenu ? getRect().width - 120 : 0)
+        .scaleEffect(isPresentedMenu ? 0.84 : 1)
+        .offset(x: isPresentedMenu ? getRect().width - 120 : 0)
         .ignoresSafeArea()
     }
 }

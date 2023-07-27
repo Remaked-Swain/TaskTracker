@@ -8,29 +8,22 @@
 import SwiftUI
 
 struct StageTab: View {
-    @EnvironmentObject private var stagingVM: StagingViewModel
     @EnvironmentObject private var coreVM: CoreViewModel
+    @Binding var isPresentedMenu: Bool
+    @Binding var selectedStage: Stage
     
     var body: some View {
-        TabView(selection: $stagingVM.selectedStage) {
-            CoreView(isPresentedMenu: $stagingVM.isPresentedMenu)
+        TabView(selection: $selectedStage) {
+            CoreView(isPresentedMenu: $isPresentedMenu)
                 .tag(Stage.core)
                 .environmentObject(coreVM)
             
-            CategoriesView(isPresentedMenu: $stagingVM.isPresentedMenu)
+            CategoriesView(isPresentedMenu: $isPresentedMenu)
                 .tag(Stage.categories)
                 .environmentObject(coreVM)
             
-            SettingView(isPresentedMenu: $stagingVM.isPresentedMenu)
+            SettingView(isPresentedMenu: $isPresentedMenu)
                 .tag(Stage.setting)
         }
-    }
-}
-
-struct StageTab_Previews: PreviewProvider {
-    static var previews: some View {
-        StageTab()
-            .environmentObject(StagingViewModel())
-            .environmentObject(CoreViewModel(coreDataManager: CoreDataManager.shared))
     }
 }

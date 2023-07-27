@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StageButton: View {
-    @EnvironmentObject private var stagingVM: StagingViewModel
+    @Binding var selectedStage: Stage
     
     let stage: Stage
     let animation: Namespace.ID
@@ -21,7 +21,7 @@ struct StageButton: View {
             Text(stage.id)
                 .fontWeight(.semibold)
         }
-        .foregroundColor(stagingVM.selectedStage.id == stage.id ? .white : .theme.accentColor)
+        .foregroundColor(selectedStage.id == stage.id ? .white : .theme.accentColor)
         .padding()
         .onTapGesture {
             changeStage()
@@ -29,7 +29,7 @@ struct StageButton: View {
         .frame(maxWidth: getRect().width - 170, alignment: .leading)
         .background(
             ZStack {
-                if stagingVM.selectedStage.id == stage.id {
+                if selectedStage.id == stage.id {
                     Color.accentColor
                         .matchedGeometryEffect(id: "stageButton", in: animation)
                         .cornerRadius(10)
@@ -40,7 +40,7 @@ struct StageButton: View {
     
     private func changeStage() {
         withAnimation(.spring()) {
-            stagingVM.selectedStage = stage
+            selectedStage = stage
         }
     }
 }

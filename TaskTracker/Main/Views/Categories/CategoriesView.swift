@@ -24,13 +24,9 @@ struct CategoriesView: View {
                             
                             Spacer()
                             
-                            HStack {
-                                Text("\(coreVM.allTasks.filter {$0.category == category && $0.isCompleted == false}.count)")
-                                Text("/")
-                                Text("\(coreVM.allTasks.filter({$0.category == category}).count)")
-                            }
-                            .font(.callout)
-                            .foregroundColor(.theme.secondaryColor)
+                            Text("\(coreVM.allTasks.filter({$0.category == category}).count)")
+                                .font(.callout)
+                                .foregroundColor(.theme.secondaryColor)
                         }
                         .swipeActions {
                             Button(role: .destructive) {
