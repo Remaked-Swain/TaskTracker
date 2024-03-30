@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol TaskListStorage {
+    func fetchTaskList() async -> [Data]
+}
