@@ -9,15 +9,20 @@ import Foundation
 import SwiftUI
 
 extension PreviewProvider {
-    static var dev: DeveloperPreview {
+    static var developerPreview: DeveloperPreview {
         return DeveloperPreview.instance
     }
 }
 
-struct DeveloperPreview {
+final class DeveloperPreview {
     static let instance = DeveloperPreview()
     
     private init() {}
+    
+    let dependencyContainer: DependencyContainer = {
+        let container = DefaultDependencyContainer()
+        return container
+    }()
     
 //    let coreDataManager = CoreDataManager.shared
 
