@@ -7,14 +7,12 @@
 
 import SwiftUI
 
-struct StagingView<ViewModel: CoreViewModel>: View {
+struct CoreView<ViewModel: CoreViewModel>: View {
     @ObservedObject private var viewModel: ViewModel
     @Namespace var animation
-    @State private var selectedStage: StageType = .core
-    @State private var isMenuPresented: Bool = false
     
-    init(fetchTasksCompletionRateUseCase: FetchTasksCompletionRateUseCase) {
-        self._coreViewModel = ObservedObject(wrappedValue: DefaultCoreViewModel(fetchTasksCompletionRateUseCase: fetchTasksCompletionRateUseCase))
+    init(viewModel: ViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {
@@ -30,18 +28,13 @@ struct StagingView<ViewModel: CoreViewModel>: View {
     }
 }
 
-#Preview {
-    StagingView(fetchTasksCompletionRateUseCase: DefaultFetchTasksCompletionRateUseCase(taskListRepository: DefaultTaskListRepository()))
-}
-
-extension StagingView {
+extension CoreView {
     private var background: some View {
         Color.theme.backgroundColor
             .ignoresSafeArea()
     }
     
     private var sideMenu: some View {
-        // Side Menu
         VStack(alignment: .leading, spacing: 30) {
             Spacer()
             
@@ -60,7 +53,7 @@ extension StagingView {
     
     private var profilePicture: some View {
         ZStack(alignment: .center) {
-            ProgressCircleView(progress: $coreViewModel.tasksCompletionRate)
+            ProgressCircleView(progress: viewModel.tasksCompletionRate)
                 .frame(width: 100, height: 100)
             
             Image("dev-jeans")
@@ -74,7 +67,7 @@ extension StagingView {
     private var turnBackButton: some View {
         Button {
             withAnimation(.spring()) {
-                isMenuPresented.toggle()
+                viewModel.hideMenu()
             }
         } label: {
             VStack {
@@ -91,8 +84,8 @@ extension StagingView {
     
     private var stageButtonsArea: some View {
         VStack(alignment: .leading, spacing: 6) {
-            ForEach(coreViewModel.selectableStages) { stage in
-                StageButton(selectedStage: $selectedStage, stage: stage, animation: animation)
+            ForEach(viewModel.selectableStages) { stage in
+                StageButton(selectedStage: $viewModel.selectedStage, stage: stage, animation: animation)
             }
         }
     }
@@ -101,24 +94,23 @@ extension StagingView {
         ZStack {
             Color.theme.backgroundColor
                 .opacity(0.5)
-                .clipShape(RoundedRectangle(cornerRadius: isMenuPresented ? 45 : 0))
+                .clipShape(RoundedRectangle(cornerRadius: viewModel.isMenuPresented ? 45 : 0))
                 .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
-                .offset(x: isMenuPresented ? -25 : 0)
+                .offset(x: viewModel.isMenuPresented ? -25 : 0)
                 .padding(.vertical, 30)
             
             Color.theme.backgroundColor
                 .opacity(0.4)
-                .clipShape(RoundedRectangle(cornerRadius: isMenuPresented ? 45 : 0))
+                .clipShape(RoundedRectangle(cornerRadius: viewModel.isMenuPresented ? 45 : 0))
                 .shadow(color: .black.opacity(0.07), radius: 5, x: -10, y: 0)
-                .offset(x: isMenuPresented ? -50 : 0)
+                .offset(x: viewModel.isMenuPresented ? -50 : 0)
                 .padding(.vertical, 60)
             
-            StageTab(isMenuPresented: $isMenuPresented, selectedStage: $selectedStage)
-                .clipShape(RoundedRectangle(cornerRadius: isMenuPresented ? 45 : 0))
+            StageTab(isMenuPresented: $viewModel.isMenuPresented, selectedStage: $viewModel.selectedStage)
+                .clipShape(RoundedRectangle(cornerRadius: viewModel.isMenuPresented ? 45 : 0))
         }
-        .environmentObject(coreViewModel)
-        .scaleEffect(isMenuPresented ? 0.04 : 1)
-        .offset(x: isMenuPresented ? rect.width - 120 : 0)
+        .scaleEffect(viewModel.isMenuPresented ? 0.04 : 1)
+        .offset(x: viewModel.isMenuPresented ? rect.width - 120 : 0)
         .ignoresSafeArea()
     }
 }
