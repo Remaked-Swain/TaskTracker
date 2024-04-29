@@ -1,18 +1,18 @@
 //
-//  StagingView.swift
+//  StageButton.swift
 //  TaskTracker
 //
-//  Created by Swain Yun on 3/30/24.
+//  Created by Swain Yun on 3/31/24.
 //
 
 import SwiftUI
 
-struct StagingView: View {
+struct StageButton: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    StagingView()
+    StageButton()
 }
