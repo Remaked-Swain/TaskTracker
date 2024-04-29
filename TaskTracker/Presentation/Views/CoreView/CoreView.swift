@@ -106,7 +106,7 @@ extension CoreView {
                 .offset(x: viewModel.isMenuPresented ? -50 : 0)
                 .padding(.vertical, 60)
             
-            StageTab(isMenuPresented: $viewModel.isMenuPresented, selectedStage: $viewModel.selectedStage)
+            StageTab(viewModel: viewModel)
                 .clipShape(RoundedRectangle(cornerRadius: viewModel.isMenuPresented ? 45 : 0))
         }
         .scaleEffect(viewModel.isMenuPresented ? 0.04 : 1)

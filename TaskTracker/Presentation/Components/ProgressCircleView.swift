@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct ProgressCircleView: View {
-    @Binding var progress: CGFloat
-    
     private let lineWidth: CGFloat = 10
     private let opacity: CGFloat = 0.3
     private let rotationEffectDegree: Angle = Angle(degrees: -90)
     
+    let progress: CGFloat
     
     var body: some View {
         ZStack {
@@ -30,8 +29,4 @@ struct ProgressCircleView: View {
                 .animation(.spring(), value: progress)
         }
     }
-}
-
-#Preview {
-    ProgressCircleView(progress: .constant(0.42))
 }

@@ -7,13 +7,15 @@
 
 import SwiftUI
 
-struct StageTab: View {
-    @EnvironmentObject private var coreViewModel: DefaultCoreViewModel
-    @Binding var isMenuPresented: Bool
-    @Binding var selectedStage: StageType
+struct StageTab<ViewModel: CoreViewModel>: View {
+    @ObservedObject private var viewModel: ViewModel
+    
+    init(viewModel: ViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
-        TabView(selection: $selectedStage) {
+        TabView(selection: $viewModel.selectedStage) {
             
         }
     }
