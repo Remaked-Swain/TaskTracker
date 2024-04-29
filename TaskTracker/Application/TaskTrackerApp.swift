@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct TaskTrackerApp: App {
+    private let container: DependencyContainer = {
+        let container = DefaultDependencyContainer()
+        container.
+    }()
+    
     var body: some Scene {
         WindowGroup {
-            StagingView()
+            StagingView(fetchTasksCompletionRateUseCase: fetchTasksCompletionRateUseCase)
         }
     }
 }

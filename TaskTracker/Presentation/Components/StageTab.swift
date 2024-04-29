@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct StageTab: View {
+    @EnvironmentObject private var coreViewModel: DefaultCoreViewModel
+    @Binding var isMenuPresented: Bool
+    @Binding var selectedStage: StageType
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView(selection: $selectedStage) {
+            
+        }
     }
-}
-
-#Preview {
-    StageTab()
 }
