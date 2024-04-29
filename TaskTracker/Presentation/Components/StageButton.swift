@@ -43,7 +43,3 @@ struct StageButton: View {
         }
     }
 }
-
-#Preview {
-    StagingView(fetchTasksCompletionRateUseCase: DefaultFetchTasksCompletionRateUseCase(taskListRepository: DefaultTaskListRepository()))
-}
