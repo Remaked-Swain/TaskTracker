@@ -11,13 +11,16 @@ protocol TaskListRepository {
     func fetchTaskList() async -> [TaskModel]
     func saveTask(task: TaskModel)
     func fetchTasksCompletionRate() async -> CGFloat
+    func calculateRemainingTime(to deadline: Date) -> Date?
 }
 
 final class DefaultTaskListRepository {
     private let coreDataStorage: CoreDataStorage
+    private let calendarService: CalendarService
     
-    init(coreDataStorage: CoreDataStorage = .shared) {
+    init(coreDataStorage: CoreDataStorage = .shared, calendarService: CalendarService) {
         self.coreDataStorage = coreDataStorage
+        self.calendarService = calendarService
     }
 }
 
@@ -33,5 +36,9 @@ extension DefaultTaskListRepository: TaskListRepository {
     
     func fetchTasksCompletionRate() async -> CGFloat {
         return 0.45
+    }
+    
+    func calculateRemainingTime(to deadline: Date) -> Date? {
+        return calendarService.calculateRemainingTime(to: deadline)
     }
 }
