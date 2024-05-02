@@ -16,7 +16,7 @@ struct StageTab<ViewModel: CoreViewModel>: View {
     
     var body: some View {
         TabView(selection: $viewModel.selectedStage) {
-            
+            TaskListView(viewModel: viewModel)
         }
     }
 }
